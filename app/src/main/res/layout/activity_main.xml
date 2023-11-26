@@ -7,12 +7,12 @@
     tools:context=".feature.main.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/mainFragment"
+        android:id="@+id/nav_host_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.ark.nikestore.feature.main.MainFragment"/>
+        android:layout_marginBottom="56dp"/>
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="سلام دنیا"
@@ -22,9 +22,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationMain"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:menu="@menu/menu_navigation"
