@@ -1,5 +1,6 @@
 package com.ark.nikestore.services.httpClient
 
+import com.ark.nikestore.data.Banner
 import com.ark.nikestore.data.Product
 import io.reactivex.Single
 import retrofit2.Retrofit
@@ -11,6 +12,8 @@ interface ApiService {
 
     @GET("product/list")
     fun getProducts(): Single<List<Product>>
+    @GET("banner/slider")
+    fun getBanners(): Single<List<Banner>>
 }
 
 fun createApiServiceInstance(): ApiService {

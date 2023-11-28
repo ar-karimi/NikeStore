@@ -1,19 +1,10 @@
 package com.ark.nikestore.feature.profile
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseFragment
+import com.ark.nikestore.databinding.FragmentProfileBinding
 
-class ProfileFragment: BaseFragment() {
+class ProfileFragment: BaseFragment<FragmentProfileBinding>() {
+    override fun getLayoutRes() = R.layout.fragment_profile
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
 }

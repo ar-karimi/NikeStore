@@ -1,34 +1,42 @@
 package com.ark.nikestore.feature.main
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseFragment
+import com.ark.nikestore.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
-class MainFragment: BaseFragment() {
+class MainFragment: BaseFragment<FragmentMainBinding>() {
 
     val mainViewModel : MainViewModel by viewModel()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false)
-    }
+    override fun getLayoutRes() = R.layout.fragment_main
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel.getProductsLiveData().observe(viewLifecycleOwner){
-            //Timber.i("Product list is: $it")
-            Log.i("MainFragment", "Product list is: $it")
+        mainViewModel.getProductsLiveData().observe(viewLifecycleOwner){ products ->
+            Timber.i("Product list is: $products")
+        }
 
+        mainViewModel.getBanners().observe(viewLifecycleOwner){
+            //Timber.i("Banner list is: $it")
+
+            val bannerSliderAdapter = BannerSliderAdapter(this, it)
+            binding.bannerSliderViewPager.adapter = bannerSliderAdapter
+
+            //Calculate the appropriate height, because wrap_content not working for viewPager2's layout_height
+            val viewPagerHeight = (binding.bannerSliderViewPager.measuredWidth * 173) / 328
+
+            val layoutParams = binding.bannerSliderViewPager.layoutParams
+            layoutParams.height = viewPagerHeight
+            binding.bannerSliderViewPager.layoutParams = layoutParams
+
+        }
+
+        mainViewModel.progressBarLiveData.observe(viewLifecycleOwner){
+            showProgressBar(it)
         }
     }
 }
