@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseFragment
+import com.ark.nikestore.common.dpToPx
 import com.ark.nikestore.databinding.FragmentMainBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -26,8 +27,11 @@ class MainFragment: BaseFragment<FragmentMainBinding>() {
             val bannerSliderAdapter = BannerSliderAdapter(this, it)
             binding.bannerSliderViewPager.adapter = bannerSliderAdapter
 
+            //Indicator
+            binding.sliderIndicator.attachTo(binding.bannerSliderViewPager)
+
             //Calculate the appropriate height, because wrap_content not working for viewPager2's layout_height
-            val viewPagerHeight = (binding.bannerSliderViewPager.measuredWidth * 173) / 328
+            val viewPagerHeight = ((binding.bannerSliderViewPager.measuredWidth - requireContext().dpToPx(32)) * 173) / 328
 
             val layoutParams = binding.bannerSliderViewPager.layoutParams
             layoutParams.height = viewPagerHeight

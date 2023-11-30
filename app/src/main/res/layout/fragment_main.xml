@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -32,10 +33,33 @@
                     android:textColorHint="?android:textColorSecondary"
                     android:textSize="15sp" />
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/bannerSliderViewPager"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/bannerSliderViewPager"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                        android:id="@+id/sliderIndicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        app:dotsColor="@color/gray"
+                        app:dotsCornerRadius="5dp"
+                        app:dotsSize="5dp"
+                        app:dotsSpacing="4dp"
+                        app:dotsWidthFactor="4"
+                        app:selectedDotColor="@color/black"
+                        app:progressMode="false"
+                        android:layout_gravity="center_horizontal|bottom"/>
+
+                </FrameLayout>
+
+
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
