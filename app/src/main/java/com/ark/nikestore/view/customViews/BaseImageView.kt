@@ -1,4 +1,4 @@
-package com.ark.nikestore.view
+package com.ark.nikestore.view.customViews
 
 import android.content.Context
 import android.util.AttributeSet

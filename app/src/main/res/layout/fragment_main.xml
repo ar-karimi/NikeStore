@@ -59,7 +59,36 @@
 
                 </FrameLayout>
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/latest"
+                        android:layout_gravity="start|center_vertical"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+                        android:textColor="?android:textColorSecondary"
+                        style="@style/fontPrimaryBold"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/viewAll"
+                        android:layout_gravity="end|center_vertical"
+                        android:textStyle="bold"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+                </FrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/latestProductsRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:clipToPadding="false"/>
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

@@ -9,7 +9,7 @@ import com.ark.nikestore.R
 import com.ark.nikestore.common.EXTRA_KEY_DATA
 import com.ark.nikestore.data.Banner
 import com.ark.nikestore.services.ImageLoadingService
-import com.ark.nikestore.view.BaseImageView
+import com.ark.nikestore.view.customViews.BaseImageView
 import org.koin.android.ext.android.inject
 import java.lang.IllegalStateException
 
@@ -24,7 +24,7 @@ class BannerFragment : Fragment() {
         val imageView = inflater.inflate(R.layout.fargment_banner, container, false) as BaseImageView
         val banner =
             requireArguments().getParcelable<Banner>(EXTRA_KEY_DATA) ?: throw IllegalStateException("Banner can't be null")
-        imageLoadingService.load(imageView, banner.image)
+        imageLoadingService.loadImage(imageView, banner.image)
         return imageView
     }
 

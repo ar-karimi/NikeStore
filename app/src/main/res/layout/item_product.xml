@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.ark.nikestore.data.Product" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:layout_marginHorizontal="4dp">
+
+        <com.ark.nikestore.view.customViews.BaseImageView
+            android:id="@+id/productIv"
+            android:layout_width="0dp"
+            android:layout_height="189dp"
+            app:roundedCornerRadius="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            image_url="@{product.image}"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/productTitleTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="عنوان محصول"
+            android:maxLines="2"
+            android:minLines="2"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:text="@{product.title}"
+            android:textAppearance="?textAppearanceBody2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productIv"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/previousPriceTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="قیمت قبلی"
+            price_in_toman="@{product.previous_price}"
+            strike_through="@{true}"
+            android:layout_marginTop="4dp"
+            android:textAppearance="?textAppearanceBody2"
+            android:textColor="?android:textColorSecondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productTitleTv"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/currentPriceTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="قیمت جدید"
+            price_in_toman="@{product.price}"
+            android:layout_marginTop="2dp"
+            android:textAppearance="?textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/previousPriceTv"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/favoriteBtn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="centerInside"
+            app:layout_constraintBottom_toTopOf="@+id/productTitleTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/productIv"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_favorites"
+            android:background="@drawable/background_favorite"
+            android:layout_margin="8dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
