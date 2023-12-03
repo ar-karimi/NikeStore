@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -18,8 +17,8 @@ import io.reactivex.disposables.CompositeDisposable
 import java.util.Locale
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
-    override val rootView: CoordinatorLayout?
-        get() = window.decorView.rootView as CoordinatorLayout
+    override val rootView: ViewGroup?
+        get() = window.decorView.rootView as ViewGroup
     override val viewContext: Context?
         get() = this
 
@@ -48,7 +47,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(), BaseView {
     override val rootView: ViewGroup?
         get() = view as ViewGroup
     override val viewContext: Context?
-        get() = context
+        get() = requireContext()
 
     lateinit var binding: T
 

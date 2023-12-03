@@ -13,21 +13,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     private val mainViewModel: MainViewModel by viewModel()
-    private val productListAdapter = ProductListAdapter()
+    private val latestProductListAdapter = ProductListAdapter()
+    private val popularProductListAdapter = ProductListAdapter()
     override fun getLayoutRes() = R.layout.fragment_main
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.latestProductsRv.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.latestProductsRv.adapter = productListAdapter
-
-        mainViewModel.getProductsLiveData().observe(viewLifecycleOwner) { products ->
-            //Timber.i("Product list is: $products")
-            productListAdapter.products = products as ArrayList<Product>
-        }
-
+        //Banners
         mainViewModel.getBanners().observe(viewLifecycleOwner) {
             //Timber.i("Banner list is: $it")
 
@@ -45,6 +38,25 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
             layoutParams.height = viewPagerHeight
             binding.bannerSliderViewPager.layoutParams = layoutParams
 
+        }
+
+        //latestProducts
+        binding.latestProductsRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.latestProductsRv.adapter = latestProductListAdapter
+
+        mainViewModel.getLatestProductsLiveData().observe(viewLifecycleOwner) { products ->
+            //Timber.i("Product list is: $products")
+            latestProductListAdapter.products = products as ArrayList<Product>
+        }
+
+        //popularProducts
+        binding.popularProductsRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.popularProductsRv.adapter = popularProductListAdapter
+
+        mainViewModel.getPopularProductsLiveData().observe(viewLifecycleOwner){ products ->
+            popularProductListAdapter.products = products as ArrayList<Product>
         }
 
         mainViewModel.progressBarLiveData.observe(viewLifecycleOwner) {

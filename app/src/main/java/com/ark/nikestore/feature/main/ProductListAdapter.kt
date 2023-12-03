@@ -20,6 +20,7 @@ class ProductListAdapter:RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
         fun bind(product: Product){
             binding.product = product
+
             binding.root.implementSpringAnimationTrait()
             binding.root.setOnClickListener {
 
