@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="product"
+            type="com.ark.nikestore.data.Product" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.product.ProductDetailActivity">
+
+        <com.ark.nikestore.view.customViews.scrollView.ObservableScrollView
+            android:id="@+id/observableSv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <com.ark.nikestore.view.customViews.BaseImageView
+                        android:id="@+id/productIv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        image_url="@{product.image}"
+                        app:viewAspectRatio="1" />
+                </FrameLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/productTitleTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Headline6"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/previousPriceTv"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        android:text="@{product.title}"
+                        tools:text="عنوان محصول" />
+
+                    <TextView
+                        android:id="@+id/previousPriceTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Body2"
+                        android:textColor="?android:textColorSecondary"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        price_in_toman="@{product.previous_price}"
+                        strike_through="@{true}"
+                        tools:text="قیمت قبلی" />
+
+                    <TextView
+                        android:id="@+id/currentPriceTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="@style/TextAppearance.MyTheme.Body1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/previousPriceTv"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/previousPriceTv"
+                        app:layout_constraintVertical_bias="0.0"
+                        price_in_toman="@{product.price}"
+                        tools:text="قیمت جدید" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1000dp"
+                    android:layout_marginTop="16dp"
+                    android:textAppearance="@style/TextAppearance.MyTheme.Body2"
+                    android:text=" این کتونی شدیدا برای دویدن و راه رفتن مناسب هست و تقریبا. هیچ فشار مخربی رو نمیذارد به پا و زانوان شما انتقال داده شود" />
+
+            </LinearLayout>
+        </com.ark.nikestore.view.customViews.scrollView.ObservableScrollView>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:paddingHorizontal="16dp"
+            android:translationZ="5dp">
+            <ImageView
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:layout_gravity="center_vertical|start"/>
+
+            <ImageView
+                android:id="@+id/favoriteBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_favorites_24dp"
+                android:layout_gravity="center_vertical|end"/>
+        </FrameLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/toolbarView"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="0dp"
+            android:alpha="0">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="48dp"
+                android:text="@{product.title}"
+                tools:text="عنوان محصول"
+                android:textAppearance="@style/TextAppearance.MyTheme.Headline6"/>
+
+        </com.google.android.material.card.MaterialCardView>
+        
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

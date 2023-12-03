@@ -9,7 +9,7 @@ import com.ark.nikestore.common.implementSpringAnimationTrait
 import com.ark.nikestore.data.Product
 import com.ark.nikestore.databinding.ItemProductBinding
 
-class ProductListAdapter:RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
+class ProductListAdapter(val productCallBack: ProductCallBack):RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
     var products = ArrayList<Product>()
         set(value){
@@ -23,9 +23,13 @@ class ProductListAdapter:RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
             binding.root.implementSpringAnimationTrait()
             binding.root.setOnClickListener {
-
+                productCallBack.onProductItemClick(product)
             }
         }
+    }
+
+    interface ProductCallBack{
+        fun onProductItemClick(product: Product)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

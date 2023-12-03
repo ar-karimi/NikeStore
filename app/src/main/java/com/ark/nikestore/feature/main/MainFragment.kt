@@ -1,20 +1,23 @@
 package com.ark.nikestore.feature.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseFragment
+import com.ark.nikestore.common.EXTRA_KEY_DATA
 import com.ark.nikestore.common.dpToPx
 import com.ark.nikestore.data.Product
 import com.ark.nikestore.databinding.FragmentMainBinding
+import com.ark.nikestore.feature.product.ProductDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : BaseFragment<FragmentMainBinding>() {
+class MainFragment : BaseFragment<FragmentMainBinding>(), ProductListAdapter.ProductCallBack {
 
     private val mainViewModel: MainViewModel by viewModel()
-    private val latestProductListAdapter = ProductListAdapter()
-    private val popularProductListAdapter = ProductListAdapter()
+    private val latestProductListAdapter = ProductListAdapter(this)
+    private val popularProductListAdapter = ProductListAdapter(this)
     override fun getLayoutRes() = R.layout.fragment_main
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,5 +65,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
         mainViewModel.progressBarLiveData.observe(viewLifecycleOwner) {
             showProgressBar(it)
         }
+    }
+
+    override fun onProductItemClick(product: Product) {
+        startActivity(Intent(requireContext(), ProductDetailActivity::class.java).apply {
+            putExtra(EXTRA_KEY_DATA, product)
+        })
     }
 }
