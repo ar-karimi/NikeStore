@@ -4,9 +4,12 @@ import android.app.Application
 import android.os.Bundle
 import com.ark.nikestore.data.repo.BannerRepository
 import com.ark.nikestore.data.repo.BannerRepositoryImpl
+import com.ark.nikestore.data.repo.CommentRepository
+import com.ark.nikestore.data.repo.CommentRepositoryImpl
 import com.ark.nikestore.data.repo.ProductRepository
 import com.ark.nikestore.data.repo.ProductRepositoryImpl
 import com.ark.nikestore.data.repo.source.BannerRemoteDataSource
+import com.ark.nikestore.data.repo.source.CommentRemoteDataSource
 import com.ark.nikestore.data.repo.source.ProductLocalDataSource
 import com.ark.nikestore.data.repo.source.ProductRemoteDataSource
 import com.ark.nikestore.feature.main.MainViewModel
@@ -34,8 +37,9 @@ class App : Application() {
             single<ImageLoadingService> { FrescoImageLoadingService() }
             factory<ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()), ProductLocalDataSource()) }
             factory<BannerRepository> { BannerRepositoryImpl(BannerRemoteDataSource(get())) }
+            factory<CommentRepository> { CommentRepositoryImpl(CommentRemoteDataSource(get())) }
             viewModel { MainViewModel(get(), get()) }
-            viewModel {(bundle: Bundle) -> ProductDetailViewModel(bundle) }
+            viewModel {(bundle: Bundle) -> ProductDetailViewModel(bundle, get()) }
         }
 
         startKoin {

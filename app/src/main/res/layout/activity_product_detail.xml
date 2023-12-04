@@ -95,10 +95,52 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="1000dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     android:textAppearance="@style/TextAppearance.MyTheme.Body2"
                     android:text=" این کتونی شدیدا برای دویدن و راه رفتن مناسب هست و تقریبا. هیچ فشار مخربی رو نمیذارد به پا و زانوان شما انتقال داده شود" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/comment"
+                        android:textAppearance="?textAppearanceHeadline6"
+                        android:textColor="?android:textColorSecondary"
+                        android:layout_gravity="center_vertical|start"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:text="@string/insertComment"
+                        android:layout_gravity="center_vertical|end"/>
+
+                </FrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentsRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:clipToPadding="false"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_comment"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/viewAllCommentsBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="24dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:text="@string/viewAllComments"/>
 
             </LinearLayout>
         </com.ark.nikestore.view.customViews.scrollView.ObservableScrollView>
