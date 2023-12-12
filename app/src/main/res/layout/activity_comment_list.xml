@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.product.comment.CommentListActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorSurface">
+
+            <com.ark.nikestore.view.customViews.BaseToolbar
+                android:id="@+id/commentListToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:toolbar_title="@string/comments"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/commentsRv"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:clipToPadding="false"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="8"
+            tools:listitem="@layout/item_comment"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/insertCommentBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            app:fabSize="normal"
+            android:layout_margin="16dp"
+            app:backgroundTint="?colorPrimary"
+            app:srcCompat="@drawable/ic_insert_comment"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

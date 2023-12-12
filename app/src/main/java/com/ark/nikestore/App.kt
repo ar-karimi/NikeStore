@@ -14,6 +14,7 @@ import com.ark.nikestore.data.repo.source.ProductLocalDataSource
 import com.ark.nikestore.data.repo.source.ProductRemoteDataSource
 import com.ark.nikestore.feature.main.MainViewModel
 import com.ark.nikestore.feature.product.ProductDetailViewModel
+import com.ark.nikestore.feature.product.comment.CommentListViewModel
 import com.ark.nikestore.services.FrescoImageLoadingService
 import com.ark.nikestore.services.ImageLoadingService
 import com.ark.nikestore.services.httpClient.createApiServiceInstance
@@ -40,6 +41,7 @@ class App : Application() {
             factory<CommentRepository> { CommentRepositoryImpl(CommentRemoteDataSource(get())) }
             viewModel { MainViewModel(get(), get()) }
             viewModel {(bundle: Bundle) -> ProductDetailViewModel(bundle, get()) }
+            viewModel {(productId: Int) -> CommentListViewModel(productId, get()) }
         }
 
         startKoin {

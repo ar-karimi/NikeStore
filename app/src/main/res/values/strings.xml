@@ -6,7 +6,7 @@
     <string name="latest">جدیدترین</string>
     <string name="popular">محبوب ترین</string>
     <string name="viewAll">مشاهده همه</string>
-    <string name="comment">نظرات کاربران</string>
+    <string name="comments">نظرات کاربران</string>
     <string name="insertComment">ثبت نظر</string>
     <string name="viewAllComments">مشاهده همه نظرات</string>
 </resources>

@@ -8,7 +8,7 @@ import com.ark.nikestore.R
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.databinding.ItemCommentBinding
 
-class CommentAdapter: RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
+class CommentAdapter(val showAll: Boolean = false): RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
 
     var comments = ArrayList<Comment>()
         set(value) {
@@ -26,7 +26,7 @@ class CommentAdapter: RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_comment, parent, false))
 
-    override fun getItemCount() = if (comments.size > 5) 5 else comments.size
+    override fun getItemCount() = if (comments.size > 5 && !showAll) 5 else comments.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(comments[position])

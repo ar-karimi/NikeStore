@@ -1,13 +1,16 @@
 package com.ark.nikestore.feature.product
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseActivity
+import com.ark.nikestore.common.EXTRA_KEY_ID
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.databinding.ActivityProductDetailBinding
+import com.ark.nikestore.feature.product.comment.CommentListActivity
 import com.ark.nikestore.view.customViews.scrollView.ObservableScrollViewCallbacks
 import com.ark.nikestore.view.customViews.scrollView.ScrollState
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -16,7 +19,7 @@ import org.koin.core.parameter.parametersOf
 class ProductDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityProductDetailBinding
-    private val productDetailViewModel: ProductDetailViewModel by viewModel(){ parametersOf(intent.extras) }
+    private val productDetailViewModel: ProductDetailViewModel by viewModel { parametersOf(intent.extras) }
     private val commentAdapter = CommentAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +31,19 @@ class ProductDetailActivity : BaseActivity() {
 
         productDetailViewModel.getCommentsLiveData().observe(this){comments ->
             commentAdapter.comments = comments as ArrayList<Comment>
-            if (comments.size > 5)
+            if (comments.size > 5) {
                 binding.viewAllCommentsBtn.visibility = View.VISIBLE
+
+                binding.viewAllCommentsBtn.setOnClickListener {
+                    startActivity(Intent(this, CommentListActivity::class.java).apply {
+                        putExtra(EXTRA_KEY_ID, productDetailViewModel.getProductLiveData().value!!.id)
+                    })
+                }
+            }
+        }
+
+        productDetailViewModel.progressBarLiveData.observe(this){
+            showProgressBar(it)
         }
 
         initViews()
@@ -61,7 +75,6 @@ class ProductDetailActivity : BaseActivity() {
         binding.commentsRv.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.commentsRv.adapter = commentAdapter
-
 
     }
 }

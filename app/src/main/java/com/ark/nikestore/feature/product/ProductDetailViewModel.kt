@@ -18,7 +18,9 @@ class ProductDetailViewModel(bundle: Bundle, commentRepository: CommentRepositor
     init {
         productLiveData.value = bundle.getParcelable(EXTRA_KEY_DATA)
 
+        progressBarLiveData.value = true
         commentRepository.getAll(productLiveData.value!!.id)
+            .doFinally { progressBarLiveData.value = false }
             .subscribe(object : BaseSingleObserver<List<Comment>>(compositeDisposable){
                 override fun onSuccess(t: List<Comment>) {
                     commentsLiveData.value = t

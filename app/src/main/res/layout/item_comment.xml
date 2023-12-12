@@ -13,17 +13,16 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/background_comment"
-        android:padding="16dp"
-        android:layout_marginBottom="8dp">
+        android:layout_height="wrap_content">
 
 
         <TextView
             android:id="@+id/commentTitleTv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="2dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
             android:gravity="right"
             android:text="@{comment.title}"
             android:textAppearance="?textAppearanceBody1"
@@ -43,6 +42,7 @@
             android:textAppearance="?textAppearanceBody2"
             android:textColor="?android:textColorSecondary"
             android:textDirection="ltr"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/commentTitleTv"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="تاریخ کامنت" />
@@ -54,14 +54,10 @@
             android:layout_marginTop="4dp"
             android:gravity="right"
             android:text="@{comment.author.email}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/commentTitleTv"
-            app:layout_constraintVertical_bias="0.0"
             android:textAppearance="?textAppearanceBody2"
             android:textColor="?android:textColorSecondary"
+            app:layout_constraintStart_toStartOf="@+id/commentTitleTv"
+            app:layout_constraintTop_toBottomOf="@+id/commentTitleTv"
             tools:text="آدرس ایمیل" />
 
         <TextView
@@ -71,14 +67,20 @@
             android:layout_marginTop="12dp"
             android:gravity="right"
             android:text="@{comment.content}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CommentAuthorTv"
-            app:layout_constraintVertical_bias="0.0"
             android:textAppearance="?textAppearanceBody2"
+            app:layout_constraintEnd_toEndOf="@+id/commentDateTv"
+            app:layout_constraintStart_toStartOf="@+id/CommentAuthorTv"
+            app:layout_constraintTop_toBottomOf="@+id/CommentAuthorTv"
             tools:text="یکی از بهترین کفش هایی هست که تا حالا دیدم خیلی خفنه" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="?dividerColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/commentContentTv" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <attr name="dividerColor" format="color"/>
+
+    <declare-styleable name="BaseToolbar">
+        <attr name="toolbar_title" format="string"/>
+    </declare-styleable>
+
 </resources>
