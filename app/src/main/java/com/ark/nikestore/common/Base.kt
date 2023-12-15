@@ -60,6 +60,11 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(), BaseView {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.lifecycleOwner = viewLifecycleOwner
+    }
+
     abstract fun getLayoutRes(): Int
 }
 

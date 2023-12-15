@@ -1,4 +1,4 @@
-package com.ark.nikestore.feature.main
+package com.ark.nikestore.feature.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import com.ark.nikestore.data.SORT_POPULAR
 import com.ark.nikestore.data.repo.BannerRepository
 import com.ark.nikestore.data.repo.ProductRepository
 
-class MainViewModel(productRepository: ProductRepository, bannerRepository: BannerRepository) : BaseViewModel() {
+class HomeViewModel(productRepository: ProductRepository, bannerRepository: BannerRepository) : BaseViewModel() {
 
     private val bannersLiveData = MutableLiveData<List<Banner>>()
     private val latestProductsLiveData = MutableLiveData<List<Product>>()

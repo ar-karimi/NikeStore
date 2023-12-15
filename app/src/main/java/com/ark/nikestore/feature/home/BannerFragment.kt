@@ -1,4 +1,4 @@
-package com.ark.nikestore.feature.main
+package com.ark.nikestore.feature.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

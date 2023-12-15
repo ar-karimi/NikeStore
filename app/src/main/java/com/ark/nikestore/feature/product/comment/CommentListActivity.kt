@@ -22,6 +22,7 @@ class CommentListActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_comment_list)
+        binding.lifecycleOwner = this
 
         binding.commentsRv.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)

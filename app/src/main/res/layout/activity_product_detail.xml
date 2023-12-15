@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="product"
-            type="com.ark.nikestore.data.Product" />
+            name="viewModel"
+            type="com.ark.nikestore.feature.product.ProductDetailViewModel" />
 
     </data>
 
@@ -33,7 +33,7 @@
                         android:id="@+id/productIv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        image_url="@{product.image}"
+                        image_url="@{viewModel.productLiveData.image}"
                         app:viewAspectRatio="1.3" />
                 </FrameLayout>
 
@@ -43,7 +43,7 @@
 
                     <TextView
                         android:id="@+id/productTitleTv"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="16dp"
                         android:ellipsize="end"
@@ -55,7 +55,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0"
-                        android:text="@{product.title}"
+                        android:text="@{viewModel.productLiveData.title}"
                         tools:text="عنوان محصول" />
 
                     <TextView
@@ -72,7 +72,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0"
-                        price_in_toman="@{product.previous_price}"
+                        price_in_toman="@{viewModel.productLiveData.previous_price}"
                         strike_through="@{true}"
                         tools:text="قیمت قبلی" />
 
@@ -88,7 +88,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/previousPriceTv"
                         app:layout_constraintVertical_bias="0.0"
-                        price_in_toman="@{product.price}"
+                        price_in_toman="@{viewModel.productLiveData.price}"
                         tools:text="قیمت جدید" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -179,8 +179,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|start"
-                android:layout_marginStart="48dp"
-                android:text="@{product.title}"
+                android:layout_marginHorizontal="48dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@{viewModel.productLiveData.title}"
                 tools:text="عنوان محصول"
                 android:textAppearance="@style/TextAppearance.MyTheme.Headline6"/>
 

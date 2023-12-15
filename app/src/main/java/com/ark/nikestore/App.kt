@@ -12,7 +12,8 @@ import com.ark.nikestore.data.repo.source.BannerRemoteDataSource
 import com.ark.nikestore.data.repo.source.CommentRemoteDataSource
 import com.ark.nikestore.data.repo.source.ProductLocalDataSource
 import com.ark.nikestore.data.repo.source.ProductRemoteDataSource
-import com.ark.nikestore.feature.main.MainViewModel
+import com.ark.nikestore.feature.list.ProductListViewModel
+import com.ark.nikestore.feature.home.HomeViewModel
 import com.ark.nikestore.feature.product.ProductDetailViewModel
 import com.ark.nikestore.feature.product.comment.CommentListViewModel
 import com.ark.nikestore.services.FrescoImageLoadingService
@@ -39,9 +40,10 @@ class App : Application() {
             factory<ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()), ProductLocalDataSource()) }
             factory<BannerRepository> { BannerRepositoryImpl(BannerRemoteDataSource(get())) }
             factory<CommentRepository> { CommentRepositoryImpl(CommentRemoteDataSource(get())) }
-            viewModel { MainViewModel(get(), get()) }
+            viewModel { HomeViewModel(get(), get()) }
             viewModel {(bundle: Bundle) -> ProductDetailViewModel(bundle, get()) }
             viewModel {(productId: Int) -> CommentListViewModel(productId, get()) }
+            viewModel {(sort : Int) -> ProductListViewModel(sort, get()) }
         }
 
         startKoin {

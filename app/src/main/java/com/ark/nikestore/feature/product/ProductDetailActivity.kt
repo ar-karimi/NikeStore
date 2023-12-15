@@ -19,30 +19,30 @@ import org.koin.core.parameter.parametersOf
 class ProductDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityProductDetailBinding
-    private val productDetailViewModel: ProductDetailViewModel by viewModel { parametersOf(intent.extras) }
+    private val viewModel: ProductDetailViewModel by viewModel { parametersOf(intent.extras) }
     private val commentAdapter = CommentAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_detail)
+        binding.lifecycleOwner = this
 
-        productDetailViewModel.getProductLiveData().observe(this){
-            binding.product = it
-        }
+        binding.viewModel = viewModel
+        binding.executePendingBindings()
 
-        productDetailViewModel.getCommentsLiveData().observe(this){comments ->
+        viewModel.getCommentsLiveData().observe(this){ comments ->
             commentAdapter.comments = comments as ArrayList<Comment>
             if (comments.size > 5) {
                 binding.viewAllCommentsBtn.visibility = View.VISIBLE
 
                 binding.viewAllCommentsBtn.setOnClickListener {
                     startActivity(Intent(this, CommentListActivity::class.java).apply {
-                        putExtra(EXTRA_KEY_ID, productDetailViewModel.getProductLiveData().value!!.id)
+                        putExtra(EXTRA_KEY_ID, viewModel.getProductLiveData().value!!.id)
                     })
                 }
             }
         }
 
-        productDetailViewModel.progressBarLiveData.observe(this){
+        viewModel.progressBarLiveData.observe(this){
             showProgressBar(it)
         }
 

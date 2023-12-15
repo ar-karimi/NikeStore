@@ -1,4 +1,4 @@
-package com.ark.nikestore.feature.main
+package com.ark.nikestore.feature.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,22 +9,26 @@ import com.ark.nikestore.common.BaseFragment
 import com.ark.nikestore.common.EXTRA_KEY_DATA
 import com.ark.nikestore.common.dpToPx
 import com.ark.nikestore.data.Product
-import com.ark.nikestore.databinding.FragmentMainBinding
+import com.ark.nikestore.data.SORT_LATEST
+import com.ark.nikestore.data.SORT_POPULAR
+import com.ark.nikestore.databinding.FragmentHomeBinding
+import com.ark.nikestore.feature.common.ProductListAdapter
+import com.ark.nikestore.feature.list.ProductListActivity
 import com.ark.nikestore.feature.product.ProductDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainFragment : BaseFragment<FragmentMainBinding>(), ProductListAdapter.ProductCallBack {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.ProductCallBack {
 
-    private val mainViewModel: MainViewModel by viewModel()
+    private val viewModel: HomeViewModel by viewModel()
     private val latestProductListAdapter = ProductListAdapter(this)
     private val popularProductListAdapter = ProductListAdapter(this)
-    override fun getLayoutRes() = R.layout.fragment_main
+    override fun getLayoutRes() = R.layout.fragment_home
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         //Banners
-        mainViewModel.getBanners().observe(viewLifecycleOwner) {
+        viewModel.getBanners().observe(viewLifecycleOwner) {
             //Timber.i("Banner list is: $it")
 
             val bannerSliderAdapter = BannerSliderAdapter(this, it)
@@ -48,7 +52,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), ProductListAdapter.Pro
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.latestProductsRv.adapter = latestProductListAdapter
 
-        mainViewModel.getLatestProductsLiveData().observe(viewLifecycleOwner) { products ->
+        viewModel.getLatestProductsLiveData().observe(viewLifecycleOwner) { products ->
             //Timber.i("Product list is: $products")
             latestProductListAdapter.products = products as ArrayList<Product>
         }
@@ -58,12 +62,24 @@ class MainFragment : BaseFragment<FragmentMainBinding>(), ProductListAdapter.Pro
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.popularProductsRv.adapter = popularProductListAdapter
 
-        mainViewModel.getPopularProductsLiveData().observe(viewLifecycleOwner){ products ->
+        viewModel.getPopularProductsLiveData().observe(viewLifecycleOwner){ products ->
             popularProductListAdapter.products = products as ArrayList<Product>
         }
 
-        mainViewModel.progressBarLiveData.observe(viewLifecycleOwner) {
+        viewModel.progressBarLiveData.observe(viewLifecycleOwner) {
             showProgressBar(it)
+        }
+
+        binding.viewAllLatestProductsBtn.setOnClickListener {
+            startActivity(Intent(requireContext(), ProductListActivity::class.java).apply {
+                putExtra(EXTRA_KEY_DATA, SORT_LATEST)
+            })
+        }
+
+        binding.viewAllPopularProductsBtn.setOnClickListener {
+            startActivity(Intent(requireContext(), ProductListActivity::class.java).apply {
+                putExtra(EXTRA_KEY_DATA, SORT_POPULAR)
+            })
         }
     }
 

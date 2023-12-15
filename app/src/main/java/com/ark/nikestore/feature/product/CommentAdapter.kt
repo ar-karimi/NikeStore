@@ -20,6 +20,7 @@ class CommentAdapter(val showAll: Boolean = false): RecyclerView.Adapter<Comment
 
         fun bind(comment: Comment){
             binding.comment = comment
+            binding.executePendingBindings() //to finalize changes in view's binding
         }
     }
 

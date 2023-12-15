@@ -16,6 +16,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
 
         val navHostFragment = supportFragmentManager.findFragmentById(
             R.id.nav_host_container
