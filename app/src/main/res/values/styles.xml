@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--BottomNavigation-->
     <style name="myBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
@@ -25,6 +25,25 @@
 
     <style name="myAppBarLayout" parent="Widget.Design.AppBarLayout">
         <item name="android:background">@color/white</item>
+    </style>
+    
+    <style name="Theme.Nike.AuthTheme.Button" parent="Theme.Nike.AuthTheme">
+        <item name="backgroundTint">?colorOnBackground</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="cornerRadius">8dp</item>
+        <item name="fontFamily">@font/primary_bold</item>
+        <item name="android:fontFamily">@font/primary_bold</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Theme.Nike.AuthTheme.EditText" parent="Theme.Nike.AuthTheme">
+        <item name="android:background">@drawable/background_auth_et</item>
+        <item name="android:textColorHint">#48FFFFFF</item>
+        <item name="android:textColor">?colorOnBackground</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingHorizontal" tools:targetApi="o">16dp</item>
     </style>
 
 </resources>

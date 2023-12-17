@@ -15,6 +15,8 @@ class AuthActivity : BaseActivity() {
         binding.lifecycleOwner = this
 
 
-
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.fragmentContainer, SignUpFragment())
+        }.commit()
     }
 }
