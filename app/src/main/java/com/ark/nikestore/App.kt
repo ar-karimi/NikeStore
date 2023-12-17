@@ -4,11 +4,14 @@ import android.app.Application
 import android.os.Bundle
 import com.ark.nikestore.data.repo.BannerRepository
 import com.ark.nikestore.data.repo.BannerRepositoryImpl
+import com.ark.nikestore.data.repo.CartRepository
+import com.ark.nikestore.data.repo.CartRepositoryImpl
 import com.ark.nikestore.data.repo.CommentRepository
 import com.ark.nikestore.data.repo.CommentRepositoryImpl
 import com.ark.nikestore.data.repo.ProductRepository
 import com.ark.nikestore.data.repo.ProductRepositoryImpl
 import com.ark.nikestore.data.repo.source.BannerRemoteDataSource
+import com.ark.nikestore.data.repo.source.CartRemoteDataSource
 import com.ark.nikestore.data.repo.source.CommentRemoteDataSource
 import com.ark.nikestore.data.repo.source.ProductLocalDataSource
 import com.ark.nikestore.data.repo.source.ProductRemoteDataSource
@@ -40,8 +43,9 @@ class App : Application() {
             factory<ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()), ProductLocalDataSource()) }
             factory<BannerRepository> { BannerRepositoryImpl(BannerRemoteDataSource(get())) }
             factory<CommentRepository> { CommentRepositoryImpl(CommentRemoteDataSource(get())) }
+            factory<CartRepository>{ CartRepositoryImpl(CartRemoteDataSource(get())) }
             viewModel { HomeViewModel(get(), get()) }
-            viewModel {(bundle: Bundle) -> ProductDetailViewModel(bundle, get()) }
+            viewModel {(bundle: Bundle) -> ProductDetailViewModel(bundle, get(), get()) }
             viewModel {(productId: Int) -> CommentListViewModel(productId, get()) }
             viewModel {(sort : Int) -> ProductListViewModel(sort, get()) }
         }

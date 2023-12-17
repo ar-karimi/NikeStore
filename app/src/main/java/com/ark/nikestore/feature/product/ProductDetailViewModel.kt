@@ -8,9 +8,12 @@ import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.common.EXTRA_KEY_DATA
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.data.Product
+import com.ark.nikestore.data.repo.CartRepository
 import com.ark.nikestore.data.repo.CommentRepository
+import io.reactivex.Completable
 
-class ProductDetailViewModel(bundle: Bundle, commentRepository: CommentRepository):BaseViewModel() {
+class ProductDetailViewModel(bundle: Bundle, commentRepository: CommentRepository,
+                             val cartRepository: CartRepository):BaseViewModel() {
 
     private val productLiveData = MutableLiveData<Product>()
     private val commentsLiveData = MutableLiveData<List<Comment>>()
@@ -30,4 +33,6 @@ class ProductDetailViewModel(bundle: Bundle, commentRepository: CommentRepositor
 
     fun getProductLiveData(): LiveData<Product> = productLiveData
     fun getCommentsLiveData(): LiveData<List<Comment>> = commentsLiveData
+
+    fun onAddToCartBtnClick():Completable = cartRepository.addToCart(productLiveData.value!!.id).ignoreElement()
 }

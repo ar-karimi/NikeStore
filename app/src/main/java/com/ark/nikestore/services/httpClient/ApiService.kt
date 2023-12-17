@@ -1,8 +1,10 @@
 package com.ark.nikestore.services.httpClient
 
+import com.ark.nikestore.data.AddToCartResponse
 import com.ark.nikestore.data.Banner
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.data.Product
+import com.google.gson.JsonObject
 import io.reactivex.Single
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -11,6 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 interface ApiService {
 
@@ -22,6 +26,9 @@ interface ApiService {
 
     @GET("comment/list")
     fun getComments(@Query("product_id") productId: Int): Single<List<Comment>>
+
+    @POST("cart/add")
+    fun addToCart(@Body jsonObject: JsonObject): Single<AddToCartResponse>
 }
 
 fun createApiServiceInstance(): ApiService {

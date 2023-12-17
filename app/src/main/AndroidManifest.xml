@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".feature.auth.AuthActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.list.ProductListActivity"
             android:exported="false" />
         <activity

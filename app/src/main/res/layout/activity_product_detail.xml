@@ -19,7 +19,9 @@
         <com.ark.nikestore.view.customViews.scrollView.ObservableScrollView
             android:id="@+id/observableSv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingBottom="50dp"
+            android:clipToPadding="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -187,6 +189,16 @@
                 android:textAppearance="@style/TextAppearance.MyTheme.Headline6"/>
 
         </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/addToCartBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="@string/addToCart"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="32dp"/>
         
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -1,11 +1,13 @@
 package com.ark.nikestore.common
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -13,7 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ark.nikestore.R
+import com.ark.nikestore.feature.auth.AuthActivity
+import com.google.android.material.snackbar.Snackbar
 import io.reactivex.disposables.CompositeDisposable
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.Locale
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
@@ -25,6 +32,18 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         setAppLocale("fa")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
     }
 
     override fun onResume() {
@@ -63,6 +82,14 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(), BaseView {
     override fun onStart() {
         super.onStart()
         binding.lifecycleOwner = viewLifecycleOwner
+        if (!EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().register(this)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (EventBus.getDefault().isRegistered(this))
+            EventBus.getDefault().unregister(this)
     }
 
     abstract fun getLayoutRes(): Int
@@ -88,6 +115,27 @@ interface BaseView {
         }
     }
 
+    fun showSnackBar(message: String, duration: Int = Snackbar.LENGTH_SHORT){
+        rootView?.let {
+            Snackbar.make(it, message, duration).show()
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun showError(baseException: BaseException){
+        viewContext?.let {
+            when(baseException.type){
+                BaseException.Type.SIMPLE -> showSnackBar(
+                    baseException.serverMessage ?: it.getString(baseException.userFriendlyMessage))
+
+                BaseException.Type.AUTH -> {
+                    Toast.makeText(it, baseException.serverMessage, Toast.LENGTH_SHORT).show()
+                    it.startActivity(Intent(it, AuthActivity::class.java))
+                }
+                BaseException.Type.DIALOG -> {}
+            }
+        }
+    }
 
 }
 

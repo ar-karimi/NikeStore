@@ -15,6 +15,9 @@
     <string name="sortPopular">محبوب ترین</string>
     <string name="sortPriceHighToLow">گران ترین</string>
     <string name="sortPriceLowToHigh">ارزان ترین</string>
+    <string name="addToCart">افزودن به سبد خرید</string>
+    <string name="unknown_error">خطای نامشخص</string>
+    <string name="success_addToCart">با موفقیت به سبد خرید اضافه شد</string>
 
     <string-array name="sortTitlesArray">
         <item>@string/sortLatest</item>
