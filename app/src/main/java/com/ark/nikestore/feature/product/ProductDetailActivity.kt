@@ -83,7 +83,7 @@ class ProductDetailActivity : BaseActivity() {
         binding.addToCartBtn.setOnClickListener { //without using LiveData, because is no need to hold Response
             viewModel.onAddToCartBtnClick().subscribe(object : BaseCompletableObserver(compositeDisposable){
                 override fun onComplete() {
-                    showSnackBar(getString(R.string.success_addToCart))
+                    showToast(getString(R.string.success_addToCart))
                 }
             })
         }

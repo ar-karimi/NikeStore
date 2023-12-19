@@ -84,4 +84,9 @@ dependencies {
     implementation 'androidx.dynamicanimation:dynamicanimation:1.0.0'
 
     implementation "org.greenrobot:eventbus:3.3.1"
+
+    implementation "tk.zielony:carbon:0.16.0.1"
+
+    implementation "com.intuit.sdp:sdp-android:1.0.6"
+    implementation "com.intuit.ssp:ssp-android:1.0.6"
 }

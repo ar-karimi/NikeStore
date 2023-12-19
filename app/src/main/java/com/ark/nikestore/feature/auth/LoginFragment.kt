@@ -2,7 +2,6 @@ package com.ark.nikestore.feature.auth
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseCompletableObserver
 import com.ark.nikestore.common.BaseFragment
@@ -26,7 +25,7 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>() {
             val email = binding.emailEt.text.toString()
             val password = binding.passwordEt.text.toString()
             if (email.isEmpty() || password.isEmpty()){
-                Toast.makeText(requireContext(), "ایمیل و رمز عبور را وارد نمایید", Toast.LENGTH_SHORT).show()
+                showToast("ایمیل و رمز عبور را وارد نمایید")
                 return@setOnClickListener
             }
             viewModel.login(email, password)
@@ -34,7 +33,7 @@ class LoginFragment: BaseFragment<FragmentLoginBinding>() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : BaseCompletableObserver(compositeDisposable){
                     override fun onComplete() {
-                        Toast.makeText(requireContext(), "با موفقیت وارد شدید", Toast.LENGTH_SHORT).show()
+                        showToast("با موفقیت وارد شدید")
                         requireActivity().finish()
                     }
                 })

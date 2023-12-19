@@ -4,11 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -16,7 +18,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ark.nikestore.R
 import com.ark.nikestore.feature.auth.AuthActivity
-import com.google.android.material.snackbar.Snackbar
 import io.reactivex.disposables.CompositeDisposable
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -115,21 +116,46 @@ interface BaseView {
         }
     }
 
-    fun showSnackBar(message: String, duration: Int = Snackbar.LENGTH_SHORT){
+    /*fun showSnackBar(message: String, duration: Int = Snackbar.LENGTH_SHORT){
         rootView?.let {
             Snackbar.make(it, message, duration).show()
         }
+    }*/
+
+    fun showToast(message: String) {
+        viewContext?.let {context ->
+            val toastView = carbon.widget.TextView(context)
+            toastView.setBackgroundColor(context.getColor(R.color.toastBackground))
+            toastView.setCornerRadius(context.resources.getDimension(com.intuit.sdp.R.dimen._7sdp))
+            toastView.setPadding(
+                context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._13sdp),
+                context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._12sdp),
+                context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._13sdp),
+                context.resources.getDimensionPixelSize(com.intuit.sdp.R.dimen._12sdp)
+            )
+            toastView.setTextColor(context.getColor(R.color.toastText))
+            toastView.typeface = ResourcesCompat.getFont(context, R.font.primary_regular)
+            toastView.text = message
+            toastView.textDirection = View.TEXT_DIRECTION_LOCALE
+
+            Toast(context).apply {
+                duration = Toast.LENGTH_LONG
+                setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 145)
+                view = toastView
+            }.show()
+        }
+
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun showError(baseException: BaseException){
         viewContext?.let {
             when(baseException.type){
-                BaseException.Type.SIMPLE -> showSnackBar(
+                BaseException.Type.SIMPLE -> showToast(
                     baseException.serverMessage ?: it.getString(baseException.userFriendlyMessage))
 
                 BaseException.Type.AUTH -> {
-                    Toast.makeText(it, baseException.serverMessage, Toast.LENGTH_SHORT).show()
+                    showToast(baseException.serverMessage!!)
                     it.startActivity(Intent(it, AuthActivity::class.java))
                 }
                 BaseException.Type.DIALOG -> {}
