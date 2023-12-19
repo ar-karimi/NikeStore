@@ -1,9 +1,13 @@
 package com.ark.nikestore.services.httpClient
 
+import com.ark.nikestore.BuildConfig
 import com.ark.nikestore.data.AddToCartResponse
 import com.ark.nikestore.data.Banner
 import com.ark.nikestore.data.Comment
+import com.ark.nikestore.data.MessageResponse
 import com.ark.nikestore.data.Product
+import com.ark.nikestore.data.TokenContainer
+import com.ark.nikestore.data.TokenResponse
 import com.google.gson.JsonObject
 import io.reactivex.Single
 import okhttp3.OkHttpClient
@@ -13,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -29,21 +34,40 @@ interface ApiService {
 
     @POST("cart/add")
     fun addToCart(@Body jsonObject: JsonObject): Single<AddToCartResponse>
+
+    @POST("auth/token")
+    fun login(@Body jsonObject: JsonObject): Single<TokenResponse>
+
+    @POST("user/register")
+    fun signUp(@Body jsonObject: JsonObject): Single<MessageResponse>
+
+    @POST("auth/token")
+    fun refreshToken(@Body jsonObject: JsonObject): Call<TokenResponse>
 }
 
-fun createApiServiceInstance(): ApiService {
+fun createApiServiceInstance(baseAuthenticator: BaseAuthenticator): ApiService {
+
+    val okHttpClientBuilder = OkHttpClient.Builder()
+        .authenticator(baseAuthenticator)
+        .addInterceptor {
+            val oldRequest = it.request()
+            val newRequestBuilder = oldRequest.newBuilder()
+            TokenContainer.token?.let {
+                newRequestBuilder.addHeader("Authorization", "Bearer ${TokenContainer.token}")
+            }
+            newRequestBuilder.addHeader("Accept", "application/json")
+            newRequestBuilder.method(oldRequest.method, oldRequest.body)
+            return@addInterceptor it.proceed(newRequestBuilder.build())
+        }
+
+    if (!BuildConfig.BUILD_TYPE.equals("release"))
+        okHttpClientBuilder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)) //to Log Requests (to show also headers must add after headers Interceptor)
 
     val retrofit = Retrofit.Builder()
         .baseUrl("http://expertdevelopers.ir/api/v1/")
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
-        //to Log Requests
-        .client(OkHttpClient.Builder().apply {
-            addInterceptor(HttpLoggingInterceptor().apply {
-                setLevel(HttpLoggingInterceptor.Level.BODY)
-            })
-        }.build())
-
+        .client(okHttpClientBuilder.build())
         .build()
 
     return retrofit.create(ApiService::class.java)

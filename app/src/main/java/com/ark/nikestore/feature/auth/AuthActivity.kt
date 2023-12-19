@@ -16,7 +16,7 @@ class AuthActivity : BaseActivity() {
 
 
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fragmentContainer, SignUpFragment())
+            replace(R.id.fragmentContainer, LoginFragment())
         }.commit()
     }
 }

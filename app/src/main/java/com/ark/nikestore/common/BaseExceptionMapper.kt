@@ -13,8 +13,12 @@ class BaseExceptionMapper {
                 try {
                     val errorJasonObject = JSONObject(throwable.response()?.errorBody()!!.string())
                     val errorMessage = errorJasonObject.getString("message")
+
+                    val isInLoginReq = // to not emmit AUTH exception in unSuccessful login and open login page again
+                        throwable.response()?.raw()!!.request.url.pathSegments.last().equals("token", false)
+
                     return BaseException(
-                        if (throwable.code() == 401) BaseException.Type.AUTH else BaseException.Type.SIMPLE,
+                        if (throwable.code() == 401 && !isInLoginReq) BaseException.Type.AUTH else BaseException.Type.SIMPLE,
                         serverMessage = errorMessage
                     )
                 } catch (exception: Exception) {
