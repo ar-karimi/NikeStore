@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.DataBindingUtil
@@ -161,6 +162,21 @@ interface BaseView {
                 BaseException.Type.DIALOG -> {}
             }
         }
+    }
+
+    fun showEmptyState(@LayoutRes layoutResId: Int): View? {
+        rootView?.let {
+            viewContext?.let {context ->
+                var emptyState = it.findViewById<View>(R.id.emptyStateRootView)
+                if (emptyState == null){
+                    emptyState = LayoutInflater.from(context).inflate(layoutResId, it, false)
+                    it.addView(emptyState)
+                }
+                emptyState.visibility = View.VISIBLE
+                return emptyState
+            }
+        }
+        return null
     }
 
 }

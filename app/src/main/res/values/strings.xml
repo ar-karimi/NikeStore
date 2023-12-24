@@ -44,4 +44,7 @@
     <string name="totalPrice">مبلغ کل خرید</string>
     <string name="shippingCost">هزینه ارسال</string>
     <string name="payablePrice">مبلغ قابل پرداخت (با احتساب تخفیف)</string>
+    <string name="cartEmptyStateLoginRequired">وارد حساب کاربری خود شوید</string>
+    <string name="cartEmptyStateLoginBtn">ورود به حساب کاربری</string>
+    <string name="cartEmptyState">هنوز محصولی به سبد خرید اضافه نکرده اید</string>
 </resources>

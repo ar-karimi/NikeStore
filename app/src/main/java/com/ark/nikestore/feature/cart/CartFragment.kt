@@ -3,6 +3,7 @@ package com.ark.nikestore.feature.cart
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ark.nikestore.R
@@ -11,7 +12,9 @@ import com.ark.nikestore.common.BaseFragment
 import com.ark.nikestore.common.EXTRA_KEY_DATA
 import com.ark.nikestore.data.CartItem
 import com.ark.nikestore.databinding.FragmentCartBinding
+import com.ark.nikestore.feature.auth.AuthActivity
 import com.ark.nikestore.feature.product.ProductDetailActivity
+import com.google.android.material.button.MaterialButton
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -40,6 +43,22 @@ class CartFragment: BaseFragment<FragmentCartBinding>(), CartAdapter.CartItemVie
 
         viewModel.progressBarLiveData.observe(viewLifecycleOwner){
             showProgressBar(it)
+        }
+
+        viewModel.getEmptyStateLiveData().observe(viewLifecycleOwner){
+            if (it.mustShow) {
+                val emptyState = showEmptyState(R.layout.view_cart_empty_state)
+                emptyState?.let { view ->
+                    view.findViewById<TextView>(R.id.emptyStateMessageTv).text = getString(it.messageResId)
+                    val callToActionBtn = view.findViewById<MaterialButton>(R.id.emptyStateCtaBtn)
+                    callToActionBtn.visibility = if (it.mustShowCallToActionBtn) View.VISIBLE else View.GONE
+                    callToActionBtn.setOnClickListener {
+                        startActivity(Intent(requireContext(), AuthActivity::class.java))
+                    }
+                }
+            }
+            else rootView?.findViewById<View>(R.id.emptyStateRootView)?.visibility = View.GONE
+
         }
 
     }
