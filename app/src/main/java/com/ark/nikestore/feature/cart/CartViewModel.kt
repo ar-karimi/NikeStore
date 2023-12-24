@@ -6,12 +6,14 @@ import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseSingleObserver
 import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.CartItem
+import com.ark.nikestore.data.CartItemCount
 import com.ark.nikestore.data.CartResponse
 import com.ark.nikestore.data.EmptyState
 import com.ark.nikestore.data.PurchaseDetail
 import com.ark.nikestore.data.TokenContainer
 import com.ark.nikestore.data.repo.CartRepository
 import io.reactivex.Completable
+import org.greenrobot.eventbus.EventBus
 
 class CartViewModel(private val cartRepository: CartRepository) : BaseViewModel() {
 
@@ -47,6 +49,11 @@ class CartViewModel(private val cartRepository: CartRepository) : BaseViewModel(
                     if (it.isEmpty())
                         emptyStateLiveData.value = EmptyState(true, R.string.cartEmptyState)
                 }
+                val cartItemCount = EventBus.getDefault().getStickyEvent(CartItemCount::class.java)
+                cartItemCount?.let {
+                    it.count -= cartItem.count
+                    EventBus.getDefault().postSticky(it)
+                }
             }
             .doFinally { progressBarLiveData.value = false }
             .ignoreElement()
@@ -58,13 +65,27 @@ class CartViewModel(private val cartRepository: CartRepository) : BaseViewModel(
           because actually its reference passed, even it is List<> or MutableList<> */
 
         return cartRepository.changeCount(cartItem.cart_item_id, ++cartItem.count)
-            .doAfterSuccess { calculateAndPublishPurchaseDetail() }
+            .doAfterSuccess {
+                calculateAndPublishPurchaseDetail()
+                val cartItemCount = EventBus.getDefault().getStickyEvent(CartItemCount::class.java)
+                cartItemCount?.let {
+                    it.count++
+                    EventBus.getDefault().postSticky(it)
+                }
+            }
             .ignoreElement()
     }
 
     fun decreaseCartItemCount(cartItem: CartItem): Completable {
         return cartRepository.changeCount(cartItem.cart_item_id, --cartItem.count)
-            .doAfterSuccess { calculateAndPublishPurchaseDetail() }
+            .doAfterSuccess {
+                calculateAndPublishPurchaseDetail()
+                val cartItemCount = EventBus.getDefault().getStickyEvent(CartItemCount::class.java)
+                cartItemCount?.let {
+                    it.count--
+                    EventBus.getDefault().postSticky(it)
+                }
+            }
             .ignoreElement()
     }
 

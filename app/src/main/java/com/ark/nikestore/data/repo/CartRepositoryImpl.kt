@@ -23,5 +23,4 @@ class CartRepositoryImpl(private val remoteDataSource: CartDataSource) : CartRep
         .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
     override fun getCardItemsCount(): Single<CartItemCount> = remoteDataSource.getCardItemsCount()
-        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }

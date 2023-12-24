@@ -24,6 +24,7 @@ import com.ark.nikestore.feature.auth.AuthViewModel
 import com.ark.nikestore.feature.cart.CartViewModel
 import com.ark.nikestore.feature.home.HomeViewModel
 import com.ark.nikestore.feature.list.ProductListViewModel
+import com.ark.nikestore.feature.main.MainViewModel
 import com.ark.nikestore.feature.product.ProductDetailViewModel
 import com.ark.nikestore.feature.product.comment.CommentListViewModel
 import com.ark.nikestore.services.FrescoImageLoadingService
@@ -63,6 +64,7 @@ class App : Application() {
             viewModel {(sort : Int) -> ProductListViewModel(sort, get()) }
             viewModel { AuthViewModel(get()) }
             viewModel { CartViewModel(get()) }
+            viewModel { MainViewModel(get()) }
         }
 
         startKoin {

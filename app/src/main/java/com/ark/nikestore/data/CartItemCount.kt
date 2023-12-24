@@ -1,5 +1,5 @@
 package com.ark.nikestore.data
 
 data class CartItemCount(
-    val count: Int
+    var count: Int
 )

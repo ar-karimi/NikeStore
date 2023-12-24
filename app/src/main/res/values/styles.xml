@@ -46,4 +46,9 @@
         <item name="android:paddingHorizontal" tools:targetApi="o">16dp</item>
     </style>
 
+    <style name="Base.TextAppearance.MaterialComponents.Badge" parent="TextAppearance.AppCompat">
+        //to improve badge font problem
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
 </resources>
