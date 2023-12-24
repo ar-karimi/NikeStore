@@ -29,6 +29,8 @@
         <item name="textAppearanceCaption">@style/TextAppearance.MyTheme.Caption</item>
         <item name="textAppearanceOverline">@style/TextAppearance.MyTheme.Overline</item>
 
+        <item name="windowBackgroundColorSub">#F8F8F8</item>
+
         <item name="bottomNavigationStyle">@style/myBottomNavigationView</item>
         <item name="dividerColor">@color/gray</item>
         <item name="android:textColorSecondary">@color/darkGray</item>

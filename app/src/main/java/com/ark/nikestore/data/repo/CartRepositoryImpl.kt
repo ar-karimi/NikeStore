@@ -9,23 +9,19 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CartRepositoryImpl(val remoteDataSource: CartDataSource) : CartRepository {
+class CartRepositoryImpl(private val remoteDataSource: CartDataSource) : CartRepository {
     override fun addToCart(productId: Int): Single<AddToCartResponse> = remoteDataSource.addToCart(productId)
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
-    override fun get(): Single<CartResponse> {
-        TODO("Not yet implemented")
-    }
+    override fun get(): Single<CartResponse> = remoteDataSource.get()
+        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
-    override fun remove(cartItemId: Int): Single<MessageResponse> {
-        TODO("Not yet implemented")
-    }
+    override fun remove(cartItemId: Int): Single<MessageResponse> = remoteDataSource.remove(cartItemId)
+        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
-    override fun changeCount(cartItemId: Int, count: Int): Single<AddToCartResponse> {
-        TODO("Not yet implemented")
-    }
+    override fun changeCount(cartItemId: Int, count: Int): Single<AddToCartResponse> = remoteDataSource.changeCount(cartItemId, count)
+        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
-    override fun getCardItemsCount(): Single<CartItemCount> {
-        TODO("Not yet implemented")
-    }
+    override fun getCardItemsCount(): Single<CartItemCount> = remoteDataSource.getCardItemsCount()
+        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }

@@ -21,6 +21,7 @@ import com.ark.nikestore.data.repo.source.ProductRemoteDataSource
 import com.ark.nikestore.data.repo.source.UserLocalDataSource
 import com.ark.nikestore.data.repo.source.UserRemoteDataSource
 import com.ark.nikestore.feature.auth.AuthViewModel
+import com.ark.nikestore.feature.cart.CartViewModel
 import com.ark.nikestore.feature.home.HomeViewModel
 import com.ark.nikestore.feature.list.ProductListViewModel
 import com.ark.nikestore.feature.product.ProductDetailViewModel
@@ -61,6 +62,7 @@ class App : Application() {
             viewModel {(productId: Int) -> CommentListViewModel(productId, get()) }
             viewModel {(sort : Int) -> ProductListViewModel(sort, get()) }
             viewModel { AuthViewModel(get()) }
+            viewModel { CartViewModel(get()) }
         }
 
         startKoin {

@@ -3,6 +3,8 @@ package com.ark.nikestore.services.httpClient
 import com.ark.nikestore.BuildConfig
 import com.ark.nikestore.data.AddToCartResponse
 import com.ark.nikestore.data.Banner
+import com.ark.nikestore.data.CartItemCount
+import com.ark.nikestore.data.CartResponse
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.data.MessageResponse
 import com.ark.nikestore.data.Product
@@ -34,6 +36,15 @@ interface ApiService {
 
     @POST("cart/add")
     fun addToCart(@Body jsonObject: JsonObject): Single<AddToCartResponse>
+    @POST("cart/remove")
+    fun removeFromCart(@Body jsonObject: JsonObject): Single<MessageResponse>
+    @GET("cart/list")
+    fun getCart(): Single<CartResponse>
+    @POST("cart/changeCount")
+    fun changeCount(@Body jsonObject: JsonObject): Single<AddToCartResponse>
+
+    @GET("cart/count")
+    fun getCartItemsCount(): Single<CartItemCount>
 
     @POST("auth/token")
     fun login(@Body jsonObject: JsonObject): Single<TokenResponse>

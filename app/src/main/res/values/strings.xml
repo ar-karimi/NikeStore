@@ -36,4 +36,12 @@
 
     <string name="signUpScreenTitle">ایجاد حساب کاربری</string>
     <string name="loginHint">قبلا ثبت نام کردید؟</string>
+
+    <string name="pay">پرداخت</string>
+    <string name="count">تعداد</string>
+    <string name="removeFromCart">حذف از سبد خرید</string>
+    <string name="purchaseDetail">جزئیات خرید</string>
+    <string name="totalPrice">مبلغ کل خرید</string>
+    <string name="shippingCost">هزینه ارسال</string>
+    <string name="payablePrice">مبلغ قابل پرداخت (با احتساب تخفیف)</string>
 </resources>
