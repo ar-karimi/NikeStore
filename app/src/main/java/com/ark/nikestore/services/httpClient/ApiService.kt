@@ -5,9 +5,11 @@ import com.ark.nikestore.data.AddToCartResponse
 import com.ark.nikestore.data.Banner
 import com.ark.nikestore.data.CartItemCount
 import com.ark.nikestore.data.CartResponse
+import com.ark.nikestore.data.Checkout
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.data.MessageResponse
 import com.ark.nikestore.data.Product
+import com.ark.nikestore.data.SubmitOrderResult
 import com.ark.nikestore.data.TokenContainer
 import com.ark.nikestore.data.TokenResponse
 import com.google.gson.JsonObject
@@ -54,6 +56,12 @@ interface ApiService {
 
     @POST("auth/token")
     fun refreshToken(@Body jsonObject: JsonObject): Call<TokenResponse>
+
+    @POST("order/submit")
+    fun submitOrder(@Body jsonObject: JsonObject): Single<SubmitOrderResult>
+
+    @GET("order/checkout")
+    fun checkout(@Query("order_id") orderId: Int): Single<Checkout>
 }
 
 fun createApiServiceInstance(baseAuthenticator: BaseAuthenticator): ApiService {

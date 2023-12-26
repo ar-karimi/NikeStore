@@ -17,9 +17,25 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".feature.checkout.CheckOutActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="expertdevelopers.ir"
+                    android:pathPattern="/appCheckout"
+                    android:scheme="nike" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".feature.shipping.ShippingActivity"
+            android:exported="false" />
+        <activity
             android:name=".feature.auth.AuthActivity"
             android:exported="false"
-            android:theme="@style/Theme.Nike.AuthTheme"/>
+            android:theme="@style/Theme.Nike.AuthTheme" />
         <activity
             android:name=".feature.list.ProductListActivity"
             android:exported="false" />

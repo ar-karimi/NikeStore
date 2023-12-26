@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".feature.shipping.ShippingActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.ark.nikestore.view.customViews.BaseToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:toolbar_title="@string/shippingToolbarTitle"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="32dp"
+            android:clipToPadding="false"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/firstNameEtl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/ShippingTextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/firstNameEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/firstName"
+                        style="@style/ShippingTextInputEditTextStyle"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/lastNameEtl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/ShippingTextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/lastNameEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/lastName"
+                        style="@style/ShippingTextInputEditTextStyle"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/postalCodeEtl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/ShippingTextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/postalCodeEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/postalCode"
+                        style="@style/ShippingTextInputEditTextStyle"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phoneNumberEtl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/ShippingTextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneNumberEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/phoneNumber"
+                        style="@style/ShippingTextInputEditTextStyle"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/addressEtl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/ShippingTextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/addressEt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/address"
+                        style="@style/ShippingTextInputEditTextStyle"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <include layout="@layout/item_purchase_details"
+                    android:id="@+id/purchaseDetailView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:clipToPadding="false"
+                    android:paddingVertical="10dp"
+                    android:gravity="center">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/cashOnDeliveryBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cashOnDelivery"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_marginEnd="8dp"/>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/onlinePaymentBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/onlinePayment"
+                        android:layout_marginStart="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

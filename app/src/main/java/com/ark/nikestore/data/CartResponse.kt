@@ -1,5 +1,8 @@
 package com.ark.nikestore.data
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 data class CartResponse(
     val cart_items: List<CartItem>,
     val payable_price: Int,
@@ -7,4 +10,6 @@ data class CartResponse(
     val total_price: Int
 )
 
-data class PurchaseDetail(var total_price: Int, var shipping_cost: Int, var payable_price: Int)
+@Parcelize
+data class PurchaseDetail(var total_price: Int, var shipping_cost: Int, var payable_price: Int) :
+    Parcelable

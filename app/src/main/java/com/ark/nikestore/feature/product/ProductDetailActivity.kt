@@ -87,6 +87,10 @@ class ProductDetailActivity : BaseActivity() {
                 }
             })
         }
+
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onDestroy() {

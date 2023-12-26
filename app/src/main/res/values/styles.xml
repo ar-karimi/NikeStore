@@ -50,5 +50,15 @@
         //to improve badge font problem
         <item name="android:textColor">@color/colorWhite</item>
     </style>
+    
+    <style name="ShippingTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_marginHorizontal" tools:targetApi="o">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
+    <style name="ShippingTextInputEditTextStyle" parent="Theme.NikeStore">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textDirection">rtl</item>
+    </style>
 
 </resources>

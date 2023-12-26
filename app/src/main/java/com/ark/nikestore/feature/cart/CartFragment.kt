@@ -14,6 +14,7 @@ import com.ark.nikestore.data.CartItem
 import com.ark.nikestore.databinding.FragmentCartBinding
 import com.ark.nikestore.feature.auth.AuthActivity
 import com.ark.nikestore.feature.product.ProductDetailActivity
+import com.ark.nikestore.feature.shipping.ShippingActivity
 import com.google.android.material.button.MaterialButton
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -59,6 +60,12 @@ class CartFragment: BaseFragment<FragmentCartBinding>(), CartAdapter.CartItemVie
             }
             else rootView?.findViewById<View>(R.id.emptyStateRootView)?.visibility = View.GONE
 
+        }
+
+        binding.payBtn.setOnClickListener {
+            startActivity(Intent(requireContext(), ShippingActivity::class.java).apply {
+                putExtra(EXTRA_KEY_DATA, viewModel.getPurchaseDetailLiveData().value)
+            })
         }
 
     }

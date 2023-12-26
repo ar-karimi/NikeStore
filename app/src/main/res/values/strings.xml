@@ -47,4 +47,19 @@
     <string name="cartEmptyStateLoginRequired">وارد حساب کاربری خود شوید</string>
     <string name="cartEmptyStateLoginBtn">ورود به حساب کاربری</string>
     <string name="cartEmptyState">هنوز محصولی به سبد خرید اضافه نکرده اید</string>
+
+    <string name="shippingToolbarTitle">انتخاب تحویل گیرنده و شیوه پرداخت</string>
+    <string name="onlinePayment">پرداخت آنلاین</string>
+    <string name="cashOnDelivery">پرداخت در محل</string>
+    <string name="firstName">نام</string>
+    <string name="lastName">نام خانوادگی</string>
+    <string name="postalCode">کد پستی</string>
+    <string name="phoneNumber">شماره موبایل</string>
+    <string name="address">آدرس</string>
+
+    <string name="checkoutToolbarTitle">رسید پرداخت</string>
+    <string name="returnHome">بازگشت به صفحه اصلی</string>
+    <string name="orderHistory">سوابق سفارش</string>
+    <string name="purchaseStatus">وضعیت سفارش</string>
+    <string name="price">مبلغ</string>
 </resources>

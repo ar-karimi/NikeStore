@@ -9,6 +9,8 @@ import com.ark.nikestore.data.repo.CartRepository
 import com.ark.nikestore.data.repo.CartRepositoryImpl
 import com.ark.nikestore.data.repo.CommentRepository
 import com.ark.nikestore.data.repo.CommentRepositoryImpl
+import com.ark.nikestore.data.repo.OrderRepository
+import com.ark.nikestore.data.repo.OrderRepositoryImpl
 import com.ark.nikestore.data.repo.ProductRepository
 import com.ark.nikestore.data.repo.ProductRepositoryImpl
 import com.ark.nikestore.data.repo.UserRepository
@@ -16,17 +18,20 @@ import com.ark.nikestore.data.repo.UserRepositoryImpl
 import com.ark.nikestore.data.repo.source.BannerRemoteDataSource
 import com.ark.nikestore.data.repo.source.CartRemoteDataSource
 import com.ark.nikestore.data.repo.source.CommentRemoteDataSource
+import com.ark.nikestore.data.repo.source.OrderRemoteDataSource
 import com.ark.nikestore.data.repo.source.ProductLocalDataSource
 import com.ark.nikestore.data.repo.source.ProductRemoteDataSource
 import com.ark.nikestore.data.repo.source.UserLocalDataSource
 import com.ark.nikestore.data.repo.source.UserRemoteDataSource
 import com.ark.nikestore.feature.auth.AuthViewModel
 import com.ark.nikestore.feature.cart.CartViewModel
+import com.ark.nikestore.feature.checkout.CheckOutViewModel
 import com.ark.nikestore.feature.home.HomeViewModel
 import com.ark.nikestore.feature.list.ProductListViewModel
 import com.ark.nikestore.feature.main.MainViewModel
 import com.ark.nikestore.feature.product.ProductDetailViewModel
 import com.ark.nikestore.feature.product.comment.CommentListViewModel
+import com.ark.nikestore.feature.shipping.ShippingViewModel
 import com.ark.nikestore.services.FrescoImageLoadingService
 import com.ark.nikestore.services.ImageLoadingService
 import com.ark.nikestore.services.httpClient.BaseAuthenticator
@@ -54,6 +59,7 @@ class App : Application() {
             single<SharedPreferences> { this@App.getSharedPreferences("app_sharedPref", MODE_PRIVATE) }
             single<UserRepository> { UserRepositoryImpl(UserRemoteDataSource(get()), UserLocalDataSource(get())) }
             single { UserLocalDataSource(get()) }
+            single<OrderRepository> { OrderRepositoryImpl(OrderRemoteDataSource(get())) }
             factory<ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()), ProductLocalDataSource()) }
             factory<BannerRepository> { BannerRepositoryImpl(BannerRemoteDataSource(get())) }
             factory<CommentRepository> { CommentRepositoryImpl(CommentRemoteDataSource(get())) }
@@ -65,6 +71,8 @@ class App : Application() {
             viewModel { AuthViewModel(get()) }
             viewModel { CartViewModel(get()) }
             viewModel { MainViewModel(get()) }
+            viewModel { ShippingViewModel(get()) }
+            viewModel {(orderId: Int) -> CheckOutViewModel(orderId, get()) }
         }
 
         startKoin {
