@@ -62,4 +62,9 @@
     <string name="orderHistory">سوابق سفارش</string>
     <string name="purchaseStatus">وضعیت سفارش</string>
     <string name="price">مبلغ</string>
+
+    <string name="favorites">لیست علاقه مندی ها</string>
+    <string name="signIn">ورود به حساب کاربری</string>
+    <string name="signOut">خروج از حساب کاربری</string>
+    <string name="guest_user">کاربر مهمان</string>
 </resources>

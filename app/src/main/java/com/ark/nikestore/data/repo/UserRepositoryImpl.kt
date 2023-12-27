@@ -5,11 +5,11 @@ import com.ark.nikestore.data.TokenResponse
 import com.ark.nikestore.data.repo.source.UserDataSource
 import io.reactivex.Completable
 
-class UserRepositoryImpl(val userRemoteDataSource: UserDataSource, val userLocalDataSource: UserDataSource)
+class UserRepositoryImpl(private val userRemoteDataSource: UserDataSource, private val userLocalDataSource: UserDataSource)
     : UserRepository {
     override fun login(userName: String, password: String): Completable {
         return userRemoteDataSource.login(userName, password).doOnSuccess {
-            onSuccessfulLogin(it)
+            onSuccessfulLogin(userName, it)
         }.ignoreElement()
     }
 
@@ -21,7 +21,7 @@ class UserRepositoryImpl(val userRemoteDataSource: UserDataSource, val userLocal
         return userRemoteDataSource.signUp(userName, password).flatMap {
             userRemoteDataSource.login(userName, password)
         }.doOnSuccess {
-            onSuccessfulLogin(it)
+            onSuccessfulLogin(userName, it)
         }.ignoreElement()
     }
 
@@ -29,8 +29,16 @@ class UserRepositoryImpl(val userRemoteDataSource: UserDataSource, val userLocal
         userLocalDataSource.loadToken()
     }
 
-    private fun onSuccessfulLogin(tokenResponse: TokenResponse){
+    override fun getUserName(): String = userLocalDataSource.getUserName()
+    override fun signOut() {
+        userLocalDataSource.signOut()
+        TokenContainer.update(null, null)
+    }
+
+    private fun onSuccessfulLogin(userName: String, tokenResponse: TokenResponse){
         userLocalDataSource.saveToken(tokenResponse.access_token, tokenResponse.refresh_token)
         TokenContainer.update(tokenResponse.access_token, tokenResponse.refresh_token)
+
+        userLocalDataSource.saveUserName(userName)
     }
 }

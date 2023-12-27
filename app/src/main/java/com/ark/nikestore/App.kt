@@ -31,6 +31,7 @@ import com.ark.nikestore.feature.list.ProductListViewModel
 import com.ark.nikestore.feature.main.MainViewModel
 import com.ark.nikestore.feature.product.ProductDetailViewModel
 import com.ark.nikestore.feature.product.comment.CommentListViewModel
+import com.ark.nikestore.feature.profile.ProfileViewModel
 import com.ark.nikestore.feature.shipping.ShippingViewModel
 import com.ark.nikestore.services.FrescoImageLoadingService
 import com.ark.nikestore.services.ImageLoadingService
@@ -73,6 +74,7 @@ class App : Application() {
             viewModel { MainViewModel(get()) }
             viewModel { ShippingViewModel(get()) }
             viewModel {(orderId: Int) -> CheckOutViewModel(orderId, get()) }
+            viewModel { ProfileViewModel(get()) }
         }
 
         startKoin {
