@@ -31,6 +31,7 @@ import com.ark.nikestore.feature.favorites.FavoriteProductsViewModel
 import com.ark.nikestore.feature.home.HomeViewModel
 import com.ark.nikestore.feature.list.ProductListViewModel
 import com.ark.nikestore.feature.main.MainViewModel
+import com.ark.nikestore.feature.order.OrderHistoryViewModel
 import com.ark.nikestore.feature.product.ProductDetailViewModel
 import com.ark.nikestore.feature.product.comment.CommentListViewModel
 import com.ark.nikestore.feature.profile.ProfileViewModel
@@ -80,6 +81,7 @@ class App : Application() {
             viewModel {(orderId: Int) -> CheckOutViewModel(orderId, get()) }
             viewModel { ProfileViewModel(get()) }
             viewModel { FavoriteProductsViewModel(get()) }
+            viewModel { OrderHistoryViewModel(get()) }
         }
 
         startKoin {

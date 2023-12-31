@@ -1,6 +1,7 @@
 package com.ark.nikestore.data.repo.source
 
 import com.ark.nikestore.data.Checkout
+import com.ark.nikestore.data.OrderHistoryItem
 import com.ark.nikestore.data.SubmitOrderResult
 import com.ark.nikestore.services.httpClient.ApiService
 import com.google.gson.JsonObject
@@ -24,4 +25,5 @@ class OrderRemoteDataSource(private val apiService: ApiService): OrderDataSource
     })
 
     override fun checkout(orderId: Int): Single<Checkout> = apiService.checkout(orderId)
+    override fun list(): Single<List<OrderHistoryItem>> = apiService.orders()
 }

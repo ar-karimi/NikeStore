@@ -20,6 +20,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.ProductCallBacks {
 
     private val viewModel: HomeViewModel by viewModel()
+    private var bannerSliderAdapter: BannerSliderAdapter? = null
     private val latestProductListAdapter = ProductListAdapter(this)
     private val popularProductListAdapter = ProductListAdapter(this)
     override fun getLayoutRes() = R.layout.fragment_home
@@ -30,21 +31,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.Pro
         //Banners
         viewModel.getBanners().observe(viewLifecycleOwner) {
             //Timber.i("Banner list is: $it")
-
-            val bannerSliderAdapter = BannerSliderAdapter(this, it)
+            bannerSliderAdapter = BannerSliderAdapter(this, it)
             binding.bannerSliderViewPager.adapter = bannerSliderAdapter
-
-            //Indicator
-            binding.sliderIndicator.attachTo(binding.bannerSliderViewPager)
-
-            //Calculate the appropriate height, because wrap_content not working for viewPager2's layout_height
-            val viewPagerHeight =
-                ((binding.bannerSliderViewPager.measuredWidth - requireContext().dpToPx(32)) * 173) / 328
-
-            val layoutParams = binding.bannerSliderViewPager.layoutParams
-            layoutParams.height = viewPagerHeight
-            binding.bannerSliderViewPager.layoutParams = layoutParams
-
+            initBannerSliderView()
         }
 
         //latestProducts
@@ -83,9 +72,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.Pro
         }
     }
 
+    private fun initBannerSliderView(){
+
+        //Indicator
+        binding.sliderIndicator.attachTo(binding.bannerSliderViewPager)
+
+        //Calculate the appropriate height, because wrap_content not working for viewPager2's layout_height
+        val viewPagerHeight =
+            ((binding.bannerSliderViewPager.measuredWidth - requireContext().dpToPx(32)) * 173) / 328
+
+        val layoutParams = binding.bannerSliderViewPager.layoutParams
+        layoutParams.height = viewPagerHeight
+        binding.bannerSliderViewPager.layoutParams = layoutParams
+    }
+
     override fun onResume() {
         super.onResume()
         viewModel.getProductsLists()
+
+        bannerSliderAdapter?.let {//after change tab, must set slider height again
+            initBannerSliderView()
+        }
     }
 
     override fun onProductItemClick(product: Product) {

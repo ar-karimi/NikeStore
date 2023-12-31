@@ -28,6 +28,7 @@
                     android:drawableStart="@drawable/ic_search"
                     android:drawablePadding="8dp"
                     android:hint="جستجو"
+                    android:textDirection="rtl"
                     android:paddingHorizontal="16dp"
                     android:textColor="?colorOnSurface"
                     android:textColorHint="?android:textColorSecondary"

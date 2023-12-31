@@ -70,4 +70,7 @@
 
     <string name="favoritesEmptyStateMessage">هنوز محصولی به لیست علاقه مندی اضافه نکرده اید</string>
     <string name="favoritesHelpMessage">برای حذف محصول آن را لمس کنید و نگه دارید</string>
+
+    <string name="orderHistoryOrderId">شناسه سفارش</string>
+    <string name="orderHistoryPayablePrice">مبلغ</string>
 </resources>

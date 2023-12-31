@@ -1,6 +1,7 @@
 package com.ark.nikestore.data.repo
 
 import com.ark.nikestore.data.Checkout
+import com.ark.nikestore.data.OrderHistoryItem
 import com.ark.nikestore.data.SubmitOrderResult
 import com.ark.nikestore.data.repo.source.OrderDataSource
 import io.reactivex.Single
@@ -20,5 +21,8 @@ class OrderRepositoryImpl(private val orderRemoteDataSource: OrderDataSource) : 
             .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
     override fun checkout(orderId: Int): Single<Checkout> = orderRemoteDataSource.checkout(orderId)
+        .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+
+    override fun list(): Single<List<OrderHistoryItem>> = orderRemoteDataSource.list()
         .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 }

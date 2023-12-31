@@ -1,6 +1,7 @@
 package com.ark.nikestore.data.repo.source
 
 import com.ark.nikestore.data.Checkout
+import com.ark.nikestore.data.OrderHistoryItem
 import com.ark.nikestore.data.SubmitOrderResult
 import io.reactivex.Single
 
@@ -16,4 +17,6 @@ interface OrderDataSource {
     ): Single<SubmitOrderResult>
 
     fun checkout(orderId: Int): Single<Checkout>
+
+    fun list(): Single<List<OrderHistoryItem>>
 }

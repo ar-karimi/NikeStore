@@ -8,6 +8,7 @@ import com.ark.nikestore.data.CartResponse
 import com.ark.nikestore.data.Checkout
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.data.MessageResponse
+import com.ark.nikestore.data.OrderHistoryItem
 import com.ark.nikestore.data.Product
 import com.ark.nikestore.data.SubmitOrderResult
 import com.ark.nikestore.data.TokenContainer
@@ -62,6 +63,9 @@ interface ApiService {
 
     @GET("order/checkout")
     fun checkout(@Query("order_id") orderId: Int): Single<Checkout>
+
+    @GET("order/list")
+    fun orders(): Single<List<OrderHistoryItem>>
 }
 
 fun createApiServiceInstance(baseAuthenticator: BaseAuthenticator): ApiService {
