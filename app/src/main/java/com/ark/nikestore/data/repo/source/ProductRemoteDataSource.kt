@@ -5,7 +5,7 @@ import com.ark.nikestore.services.httpClient.ApiService
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class ProductRemoteDataSource(val apiService: ApiService):ProductDataSource {
+class ProductRemoteDataSource(private val apiService: ApiService):ProductDataSource {
 
     override fun getProducts(sort: Int): Single<List<Product>> = apiService.getProducts(sort.toString())
 
@@ -13,11 +13,11 @@ class ProductRemoteDataSource(val apiService: ApiService):ProductDataSource {
         TODO("Not yet implemented")
     }
 
-    override fun addToFavorites(): Completable {
+    override fun addToFavorites(product: Product): Completable {
         TODO("Not yet implemented")
     }
 
-    override fun deleteFromFavorites(): Completable {
+override fun deleteFromFavorites(product: Product): Completable {
         TODO("Not yet implemented")
     }
 }

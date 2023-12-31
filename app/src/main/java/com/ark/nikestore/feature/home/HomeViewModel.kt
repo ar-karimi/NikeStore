@@ -2,6 +2,7 @@ package com.ark.nikestore.feature.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.ark.nikestore.common.BaseCompletableObserver
 import com.ark.nikestore.common.BaseSingleObserver
 import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.Banner
@@ -10,8 +11,9 @@ import com.ark.nikestore.data.SORT_LATEST
 import com.ark.nikestore.data.SORT_POPULAR
 import com.ark.nikestore.data.repo.BannerRepository
 import com.ark.nikestore.data.repo.ProductRepository
+import io.reactivex.schedulers.Schedulers
 
-class HomeViewModel(productRepository: ProductRepository, bannerRepository: BannerRepository) : BaseViewModel() {
+class HomeViewModel(private val productRepository: ProductRepository, bannerRepository: BannerRepository) : BaseViewModel() {
 
     private val bannersLiveData = MutableLiveData<List<Banner>>()
     private val latestProductsLiveData = MutableLiveData<List<Product>>()
@@ -27,6 +29,9 @@ class HomeViewModel(productRepository: ProductRepository, bannerRepository: Bann
                     bannersLiveData.value = t
                 }
             })
+    }
+
+    fun getProductsLists(){
 
         productRepository.getProducts(SORT_LATEST)
             //.doFinally { progressBarLiveData.value = false }
@@ -43,6 +48,25 @@ class HomeViewModel(productRepository: ProductRepository, bannerRepository: Bann
                     popularProductsLiveData.value = t
                 }
             })
+    }
+
+    fun changeFavoriteProduct(product: Product){
+        if (product.isFavorite)
+            productRepository.deleteFromFavorites(product)
+                .subscribeOn(Schedulers.io())
+                .subscribe(object : BaseCompletableObserver(compositeDisposable){
+                    override fun onComplete() {
+                        product.isFavorite = false
+                    }
+                })
+        else
+            productRepository.addToFavorites(product)
+                .subscribeOn(Schedulers.io())
+                .subscribe(object : BaseCompletableObserver(compositeDisposable){
+                    override fun onComplete() {
+                        product.isFavorite = true
+                    }
+                })
     }
 
     fun getBanners(): LiveData<List<Banner>> = bannersLiveData

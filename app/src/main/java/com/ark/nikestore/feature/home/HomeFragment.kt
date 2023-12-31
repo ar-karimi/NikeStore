@@ -17,7 +17,7 @@ import com.ark.nikestore.feature.list.ProductListActivity
 import com.ark.nikestore.feature.product.ProductDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.ProductCallBack {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.ProductCallBacks {
 
     private val viewModel: HomeViewModel by viewModel()
     private val latestProductListAdapter = ProductListAdapter(this)
@@ -83,9 +83,18 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.Pro
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProductsLists()
+    }
+
     override fun onProductItemClick(product: Product) {
         startActivity(Intent(requireContext(), ProductDetailActivity::class.java).apply {
             putExtra(EXTRA_KEY_DATA, product)
         })
+    }
+
+    override fun onProductFavoriteClick(product: Product) {
+        viewModel.changeFavoriteProduct(product)
     }
 }

@@ -3,6 +3,8 @@ package com.ark.nikestore
 import android.app.Application
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.room.Room
+import com.ark.nikestore.data.db.AppDatabase
 import com.ark.nikestore.data.repo.BannerRepository
 import com.ark.nikestore.data.repo.BannerRepositoryImpl
 import com.ark.nikestore.data.repo.CartRepository
@@ -19,13 +21,13 @@ import com.ark.nikestore.data.repo.source.BannerRemoteDataSource
 import com.ark.nikestore.data.repo.source.CartRemoteDataSource
 import com.ark.nikestore.data.repo.source.CommentRemoteDataSource
 import com.ark.nikestore.data.repo.source.OrderRemoteDataSource
-import com.ark.nikestore.data.repo.source.ProductLocalDataSource
 import com.ark.nikestore.data.repo.source.ProductRemoteDataSource
 import com.ark.nikestore.data.repo.source.UserLocalDataSource
 import com.ark.nikestore.data.repo.source.UserRemoteDataSource
 import com.ark.nikestore.feature.auth.AuthViewModel
 import com.ark.nikestore.feature.cart.CartViewModel
 import com.ark.nikestore.feature.checkout.CheckOutViewModel
+import com.ark.nikestore.feature.favorites.FavoriteProductsViewModel
 import com.ark.nikestore.feature.home.HomeViewModel
 import com.ark.nikestore.feature.list.ProductListViewModel
 import com.ark.nikestore.feature.main.MainViewModel
@@ -61,12 +63,14 @@ class App : Application() {
             single<UserRepository> { UserRepositoryImpl(UserRemoteDataSource(get()), UserLocalDataSource(get())) }
             single { UserLocalDataSource(get()) }
             single<OrderRepository> { OrderRepositoryImpl(OrderRemoteDataSource(get())) }
-            factory<ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get()), ProductLocalDataSource()) }
+            single { Room.databaseBuilder(this@App, AppDatabase::class.java, "db_app").build() }
+            factory<ProductRepository> { ProductRepositoryImpl(ProductRemoteDataSource(get())
+                , get<AppDatabase>().productDao()) }
             factory<BannerRepository> { BannerRepositoryImpl(BannerRemoteDataSource(get())) }
             factory<CommentRepository> { CommentRepositoryImpl(CommentRemoteDataSource(get())) }
             factory<CartRepository>{ CartRepositoryImpl(CartRemoteDataSource(get())) }
             viewModel { HomeViewModel(get(), get()) }
-            viewModel {(bundle: Bundle) -> ProductDetailViewModel(bundle, get(), get()) }
+            viewModel {(bundle: Bundle) -> ProductDetailViewModel(bundle, get(), get(), get()) }
             viewModel {(productId: Int) -> CommentListViewModel(productId, get()) }
             viewModel {(sort : Int) -> ProductListViewModel(sort, get()) }
             viewModel { AuthViewModel(get()) }
@@ -75,6 +79,7 @@ class App : Application() {
             viewModel { ShippingViewModel(get()) }
             viewModel {(orderId: Int) -> CheckOutViewModel(orderId, get()) }
             viewModel { ProfileViewModel(get()) }
+            viewModel { FavoriteProductsViewModel(get()) }
         }
 
         startKoin {

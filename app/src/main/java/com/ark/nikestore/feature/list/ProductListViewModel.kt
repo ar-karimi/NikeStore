@@ -3,12 +3,14 @@ package com.ark.nikestore.feature.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ark.nikestore.R
+import com.ark.nikestore.common.BaseCompletableObserver
 import com.ark.nikestore.common.BaseSingleObserver
 import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.Product
 import com.ark.nikestore.data.repo.ProductRepository
+import io.reactivex.schedulers.Schedulers
 
-class ProductListViewModel(var sort: Int, val productRepository: ProductRepository) : BaseViewModel() {
+class ProductListViewModel(var sort: Int, private val productRepository: ProductRepository) : BaseViewModel() {
 
     private val productsLivedata = MutableLiveData<List<Product>>()
     private val selectedSortTitleResIdLiveData = MutableLiveData<Int>()
@@ -17,7 +19,6 @@ class ProductListViewModel(var sort: Int, val productRepository: ProductReposito
 
     init {
         selectedSortTitleResIdLiveData.value = sortTitles[sort]
-        getProducts()
     }
 
     fun getProducts() {
@@ -39,5 +40,24 @@ class ProductListViewModel(var sort: Int, val productRepository: ProductReposito
         this.sort = sort
         selectedSortTitleResIdLiveData.value = sortTitles[sort]
         getProducts()
+    }
+
+    fun changeFavoriteProduct(product: Product){
+        if (product.isFavorite)
+            productRepository.deleteFromFavorites(product)
+                .subscribeOn(Schedulers.io())
+                .subscribe(object : BaseCompletableObserver(compositeDisposable){
+                    override fun onComplete() {
+                        product.isFavorite = false
+                    }
+                })
+        else
+            productRepository.addToFavorites(product)
+                .subscribeOn(Schedulers.io())
+                .subscribe(object : BaseCompletableObserver(compositeDisposable){
+                    override fun onComplete() {
+                        product.isFavorite = true
+                    }
+                })
     }
 }

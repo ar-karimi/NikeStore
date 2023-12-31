@@ -66,5 +66,8 @@
     <string name="favorites">لیست علاقه مندی ها</string>
     <string name="signIn">ورود به حساب کاربری</string>
     <string name="signOut">خروج از حساب کاربری</string>
-    <string name="guest_user">کاربر مهمان</string>
+    <string name="guestUser">کاربر مهمان</string>
+
+    <string name="favoritesEmptyStateMessage">هنوز محصولی به لیست علاقه مندی اضافه نکرده اید</string>
+    <string name="favoritesHelpMessage">برای حذف محصول آن را لمس کنید و نگه دارید</string>
 </resources>

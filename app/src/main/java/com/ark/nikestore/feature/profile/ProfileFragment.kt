@@ -7,6 +7,7 @@ import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseFragment
 import com.ark.nikestore.databinding.FragmentProfileBinding
 import com.ark.nikestore.feature.auth.AuthActivity
+import com.ark.nikestore.feature.favorites.FavoriteProductsActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
@@ -16,6 +17,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.favoriteProductsBtn.setOnClickListener {
+            startActivity(Intent(requireContext(), FavoriteProductsActivity::class.java))
+        }
     }
 
     override fun onResume() {
@@ -38,7 +43,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
             binding.authBtn.setOnClickListener {
                 startActivity(Intent(requireContext(), AuthActivity::class.java))
             }
-            binding.userNameTv.text = getString(R.string.guest_user)
+            binding.userNameTv.text = getString(R.string.guestUser)
         }
     }
 }

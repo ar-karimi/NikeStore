@@ -2,6 +2,7 @@ package com.ark.nikestore.feature.common
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -11,13 +12,12 @@ import com.ark.nikestore.data.Product
 import com.ark.nikestore.databinding.ItemProductBinding
 import com.ark.nikestore.databinding.ItemProductLargeBinding
 import com.ark.nikestore.databinding.ItemProductSmallBinding
-import java.lang.IllegalStateException
 
 const val VIEW_TYPE_ROUND = 0
 const val VIEW_TYPE_SMALL = 1
 const val VIEW_TYPE_LARGE = 2
 
-class ProductListAdapter(val productCallBack: ProductCallBack, var viewType: Int = VIEW_TYPE_ROUND):RecyclerView.Adapter<ProductListAdapter.ViewHolder<ViewDataBinding>>() {
+class ProductListAdapter(val productCallBacks: ProductCallBacks, var viewType: Int = VIEW_TYPE_ROUND):RecyclerView.Adapter<ProductListAdapter.ViewHolder<ViewDataBinding>>() {
 
     var products = ArrayList<Product>()
         set(value){
@@ -28,32 +28,49 @@ class ProductListAdapter(val productCallBack: ProductCallBack, var viewType: Int
 
         fun bind(product: Product){
 
+            val favoriteBtn: ImageView
+
             when (binding) {
                 is ItemProductBinding -> {
                     val newBinding = binding as ItemProductBinding
                     newBinding.product = product
+                    favoriteBtn = newBinding.favoriteBtn
                 }
                 is ItemProductSmallBinding -> {
                     val newBinding = binding as ItemProductSmallBinding
                     newBinding.product = product
+                    favoriteBtn = newBinding.favoriteBtn
                 }
                 else -> {
                     val newBinding = binding as ItemProductLargeBinding
                     newBinding.product = product
+                    favoriteBtn = newBinding.favoriteBtn
                 }
             }
 
             binding.root.implementSpringAnimationTrait()
             binding.root.setOnClickListener {
-                productCallBack.onProductItemClick(product)
+                productCallBacks.onProductItemClick(product)
+            }
+
+            if (product.isFavorite)
+                favoriteBtn.setImageResource(R.drawable.ic_favorite_fill)
+            else
+                favoriteBtn.setImageResource(R.drawable.ic_favorites)
+
+            favoriteBtn.setOnClickListener {
+                productCallBacks.onProductFavoriteClick(product)
+                //product.isFavorite = !product.isFavorite       //will do in viewModel (reference passed)
+                notifyItemChanged(adapterPosition)
             }
 
             binding.executePendingBindings()
         }
     }
 
-    interface ProductCallBack{
+    interface ProductCallBacks{
         fun onProductItemClick(product: Product)
+        fun onProductFavoriteClick(product: Product)
     }
 
     override fun getItemViewType(position: Int): Int {

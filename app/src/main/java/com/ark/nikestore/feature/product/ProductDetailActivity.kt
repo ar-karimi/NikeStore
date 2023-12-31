@@ -91,6 +91,10 @@ class ProductDetailActivity : BaseActivity() {
         binding.backBtn.setOnClickListener {
             finish()
         }
+
+        binding.favoriteBtn.setOnClickListener {
+            viewModel.changeFavoriteProduct()
+        }
     }
 
     override fun onDestroy() {

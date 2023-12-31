@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="product"
+            type="com.ark.nikestore.data.Product" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <com.ark.nikestore.view.customViews.BaseImageView
+            android:id="@+id/baseImageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            image_url="@{product.image}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:roundedCornerRadius="8dp" />
+
+        <TextView
+            android:id="@+id/productTitleTv"
+            android:layout_width="0dp"
+            android:text="@{product.title}"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/baseImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/baseImageView"
+            app:layout_constraintTop_toTopOf="@+id/baseImageView"
+            tools:text="محصول لیست علاقه مندی" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

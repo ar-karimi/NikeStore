@@ -91,4 +91,15 @@ dependencies {
     implementation "com.intuit.ssp:ssp-android:1.0.6"
 
     implementation "androidx.browser:browser:1.5.0"
+
+
+    def room_version = "2.5.2"
+    //Room
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    // To use Kotlin annotation processing tool (kapt)
+    kapt "androidx.room:room-compiler:$room_version"
+    // optional - RxJava2 support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"
+
 }

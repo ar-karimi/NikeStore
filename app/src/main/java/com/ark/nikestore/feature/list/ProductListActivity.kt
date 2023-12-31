@@ -18,7 +18,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class ProductListActivity : BaseActivity(), ProductListAdapter.ProductCallBack {
+class ProductListActivity : BaseActivity(), ProductListAdapter.ProductCallBacks {
 
     private lateinit var binding: ActivityProductListBinding
     private val viewModel : ProductListViewModel by viewModel {parametersOf(intent.extras!!.getInt(EXTRA_KEY_DATA))}
@@ -71,9 +71,18 @@ class ProductListActivity : BaseActivity(), ProductListAdapter.ProductCallBack {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getProducts()
+    }
+
     override fun onProductItemClick(product: Product) {
         startActivity(Intent(this, ProductDetailActivity::class.java).apply {
             putExtra(EXTRA_KEY_DATA, product)
         })
+    }
+
+    override fun onProductFavoriteClick(product: Product) {
+        viewModel.changeFavoriteProduct(product)
     }
 }
