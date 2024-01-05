@@ -7,4 +7,4 @@ Using: MVVM, Koin, Retrofit, RxJava2, Room, LiveData, DataBinding/BindingAdapter
 
 Screenshots:
 
-![NikeStoreHome](https://github.com/ar-karimi/NikeStore/assets/30285177/0698fd62-d2d8-46cd-b1db-0a11e4b17587)
+![NikeStoreHome1](https://github.com/ar-karimi/NikeStore/assets/30285177/556ec362-d64b-4c5b-91b4-824e52125603)
