@@ -23,8 +23,9 @@ fun Context.pxToDp(px: Int): Int {
 }
 
 fun formatPrice(price: Number, unitRelativeSizeFactor: Float = 0.7f): SpannableString {
+    val priceWithCommas = "%,d".format(price)
     val currencyLabel="تومان"
-    val spannableString = SpannableString("$price $currencyLabel")
+    val spannableString = SpannableString("$priceWithCommas $currencyLabel")
     spannableString.setSpan(
         RelativeSizeSpan(unitRelativeSizeFactor),
         spannableString.indexOf(currencyLabel),
