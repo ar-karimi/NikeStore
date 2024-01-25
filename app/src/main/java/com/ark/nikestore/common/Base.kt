@@ -98,6 +98,7 @@ abstract class BaseFragment<T : ViewDataBinding> : Fragment(), BaseView {
 }
 
 interface BaseView {
+
     val rootView: ViewGroup?
     val viewContext: Context?
 
