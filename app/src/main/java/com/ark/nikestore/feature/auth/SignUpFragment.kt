@@ -11,11 +11,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class SignUpFragment: BaseFragment<FragmentSignUpBinding>() {
+class SignUpFragment: BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up) {
 
     private val viewModel: AuthViewModel by viewModel()
     private val compositeDisposable = CompositeDisposable()
-    override fun getLayoutRes() = R.layout.fragment_sign_up
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -19,12 +19,11 @@ import com.google.android.material.button.MaterialButton
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CartFragment: BaseFragment<FragmentCartBinding>(), CartAdapter.CartItemViewCallbacks {
+class CartFragment: BaseFragment<FragmentCartBinding>(R.layout.fragment_cart), CartAdapter.CartItemViewCallbacks {
 
     private val viewModel: CartViewModel by viewModel()
     private lateinit var cartAdapter: CartAdapter
     private val compositeDisposable = CompositeDisposable()
-    override fun getLayoutRes() = R.layout.fragment_cart
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

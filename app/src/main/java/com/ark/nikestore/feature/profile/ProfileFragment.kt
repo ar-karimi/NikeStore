@@ -11,10 +11,9 @@ import com.ark.nikestore.feature.favorites.FavoriteProductsActivity
 import com.ark.nikestore.feature.order.OrderHistoryActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProfileFragment : BaseFragment<FragmentProfileBinding>() {
+class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
     private val viewModel: ProfileViewModel by viewModel()
-    override fun getLayoutRes() = R.layout.fragment_profile
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

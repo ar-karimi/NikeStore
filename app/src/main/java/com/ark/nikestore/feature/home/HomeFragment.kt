@@ -17,13 +17,13 @@ import com.ark.nikestore.feature.list.ProductListActivity
 import com.ark.nikestore.feature.product.ProductDetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.ProductCallBacks {
+class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
+    ProductListAdapter.ProductCallBacks {
 
     private val viewModel: HomeViewModel by viewModel()
     private var bannerSliderAdapter: BannerSliderAdapter? = null
     private val latestProductListAdapter = ProductListAdapter(this)
     private val popularProductListAdapter = ProductListAdapter(this)
-    override fun getLayoutRes() = R.layout.fragment_home
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -51,7 +51,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.Pro
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.popularProductsRv.adapter = popularProductListAdapter
 
-        viewModel.getPopularProductsLiveData().observe(viewLifecycleOwner){ products ->
+        viewModel.getPopularProductsLiveData().observe(viewLifecycleOwner) { products ->
             popularProductListAdapter.products = products as ArrayList<Product>
         }
 
@@ -72,7 +72,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), ProductListAdapter.Pro
         }
     }
 
-    private fun initBannerSliderView(){
+    private fun initBannerSliderView() {
 
         //Indicator
         binding.sliderIndicator.attachTo(binding.bannerSliderViewPager)

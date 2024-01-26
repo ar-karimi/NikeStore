@@ -3,7 +3,6 @@ package com.ark.nikestore.feature.list
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseActivity
@@ -18,15 +17,20 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class ProductListActivity : BaseActivity(), ProductListAdapter.ProductCallBacks {
+class ProductListActivity :
+    BaseActivity<ActivityProductListBinding>(R.layout.activity_product_list),
+    ProductListAdapter.ProductCallBacks {
 
-    private lateinit var binding: ActivityProductListBinding
-    private val viewModel : ProductListViewModel by viewModel {parametersOf(intent.extras!!.getInt(EXTRA_KEY_DATA))}
+    private val viewModel: ProductListViewModel by viewModel {
+        parametersOf(
+            intent.extras!!.getInt(
+                EXTRA_KEY_DATA
+            )
+        )
+    }
     private val productListAdapter = ProductListAdapter(this, VIEW_TYPE_SMALL)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_product_list)
-        binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
         binding.executePendingBindings()
@@ -35,12 +39,12 @@ class ProductListActivity : BaseActivity(), ProductListAdapter.ProductCallBacks 
             finish()
         }
 
-        val gridLayoutManager = GridLayoutManager(this,2)
+        val gridLayoutManager = GridLayoutManager(this, 2)
         binding.productsRv.layoutManager = gridLayoutManager
         binding.productsRv.adapter = productListAdapter
 
-        binding.viewTypeChangerBtn.setOnClickListener{
-            if (productListAdapter.viewType == VIEW_TYPE_SMALL){
+        binding.viewTypeChangerBtn.setOnClickListener {
+            if (productListAdapter.viewType == VIEW_TYPE_SMALL) {
                 productListAdapter.viewType = VIEW_TYPE_LARGE
                 gridLayoutManager.spanCount = 1
                 productListAdapter.notifyDataSetChanged()
@@ -53,17 +57,20 @@ class ProductListActivity : BaseActivity(), ProductListAdapter.ProductCallBacks 
             }
         }
 
-        viewModel.getProductsLiveData().observe(this){
+        viewModel.getProductsLiveData().observe(this) {
             productListAdapter.products = it as ArrayList<Product>
         }
 
-        viewModel.progressBarLiveData.observe(this){
+        viewModel.progressBarLiveData.observe(this) {
             showProgressBar(it)
         }
 
         binding.sortBtn.setOnClickListener {
             val dialog = MaterialAlertDialogBuilder(this)
-                .setSingleChoiceItems(R.array.sortTitlesArray, viewModel.sort) { dialog, selectedSortIndex ->
+                .setSingleChoiceItems(
+                    R.array.sortTitlesArray,
+                    viewModel.sort
+                ) { dialog, selectedSortIndex ->
                     viewModel.onSelectedSortChange(selectedSortIndex)
                     dialog.dismiss()
                 }.setTitle(getString(R.string.sort))

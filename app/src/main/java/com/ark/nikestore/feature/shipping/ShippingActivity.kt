@@ -3,7 +3,6 @@ package com.ark.nikestore.feature.shipping
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.databinding.DataBindingUtil
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseActivity
 import com.ark.nikestore.common.BaseSingleObserver
@@ -15,18 +14,14 @@ import com.ark.nikestore.data.SubmitOrderResult
 import com.ark.nikestore.databinding.ActivityShippingBinding
 import com.ark.nikestore.feature.checkout.CheckOutActivity
 import io.reactivex.disposables.CompositeDisposable
-import java.lang.IllegalStateException
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ShippingActivity : BaseActivity() {
+class ShippingActivity : BaseActivity<ActivityShippingBinding>(R.layout.activity_shipping) {
 
-    lateinit var binding: ActivityShippingBinding
     val viewModel: ShippingViewModel by viewModel()
     val compositeDisposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_shipping)
-        binding.lifecycleOwner = this
 
         val purchaseDetail = intent.getParcelableExtra<PurchaseDetail>(EXTRA_KEY_DATA)
             ?: throw IllegalStateException("PurchaseDetail can't be null")
