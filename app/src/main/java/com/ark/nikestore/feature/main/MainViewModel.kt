@@ -5,10 +5,13 @@ import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.CartItemCount
 import com.ark.nikestore.data.TokenContainer
 import com.ark.nikestore.data.repo.CartRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
 import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
 
-class MainViewModel(private val cartRepository: CartRepository): BaseViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor(private val cartRepository: CartRepository): BaseViewModel() {
 
     fun getCartItemsCount(){
         if (!TokenContainer.token.isNullOrEmpty()){

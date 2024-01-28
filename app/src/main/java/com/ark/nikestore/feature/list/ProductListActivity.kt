@@ -3,6 +3,7 @@ package com.ark.nikestore.feature.list
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseActivity
@@ -14,23 +15,20 @@ import com.ark.nikestore.feature.common.VIEW_TYPE_LARGE
 import com.ark.nikestore.feature.common.VIEW_TYPE_SMALL
 import com.ark.nikestore.feature.product.ProductDetailActivity
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductListActivity :
     BaseActivity<ActivityProductListBinding>(R.layout.activity_product_list),
     ProductListAdapter.ProductCallBacks {
 
-    private val viewModel: ProductListViewModel by viewModel {
-        parametersOf(
-            intent.extras!!.getInt(
-                EXTRA_KEY_DATA
-            )
-        )
-    }
+    private val viewModel: ProductListViewModel by viewModels()
     private val productListAdapter = ProductListAdapter(this, VIEW_TYPE_SMALL)
+    private var selectedSort : Int = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        selectedSort = intent.extras!!.getInt(EXTRA_KEY_DATA)
 
         binding.viewModel = viewModel
         binding.executePendingBindings()
@@ -69,9 +67,10 @@ class ProductListActivity :
             val dialog = MaterialAlertDialogBuilder(this)
                 .setSingleChoiceItems(
                     R.array.sortTitlesArray,
-                    viewModel.sort
+                    selectedSort
                 ) { dialog, selectedSortIndex ->
-                    viewModel.onSelectedSortChange(selectedSortIndex)
+                    selectedSort = selectedSortIndex
+                    viewModel.setSelectedSort(selectedSort)
                     dialog.dismiss()
                 }.setTitle(getString(R.string.sort))
             dialog.show()
@@ -80,7 +79,7 @@ class ProductListActivity :
 
     override fun onResume() {
         super.onResume()
-        viewModel.getProducts()
+        viewModel.setSelectedSort(selectedSort)
     }
 
     override fun onProductItemClick(product: Product) {

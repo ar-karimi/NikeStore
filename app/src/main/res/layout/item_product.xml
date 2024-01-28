@@ -17,7 +17,7 @@
         android:paddingBottom="12dp"
         android:layout_marginHorizontal="4dp">
 
-        <com.ark.nikestore.view.customViews.BaseImageView
+        <com.ark.nikestore.view.customViews.CustomImageView
             android:id="@+id/productIv"
             android:layout_width="0dp"
             android:layout_height="189dp"

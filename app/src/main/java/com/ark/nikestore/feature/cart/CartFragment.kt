@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ark.nikestore.R
@@ -16,12 +17,13 @@ import com.ark.nikestore.feature.auth.AuthActivity
 import com.ark.nikestore.feature.product.ProductDetailActivity
 import com.ark.nikestore.feature.shipping.ShippingActivity
 import com.google.android.material.button.MaterialButton
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class CartFragment: BaseFragment<FragmentCartBinding>(R.layout.fragment_cart), CartAdapter.CartItemViewCallbacks {
 
-    private val viewModel: CartViewModel by viewModel()
+    private val viewModel: CartViewModel by viewModels()
     private lateinit var cartAdapter: CartAdapter
     private val compositeDisposable = CompositeDisposable()
 

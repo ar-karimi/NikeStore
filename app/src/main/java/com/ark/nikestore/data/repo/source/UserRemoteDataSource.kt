@@ -5,10 +5,11 @@ import com.ark.nikestore.data.TokenResponse
 import com.ark.nikestore.services.httpClient.ApiService
 import com.google.gson.JsonObject
 import io.reactivex.Single
+import javax.inject.Inject
 
 const val CLIENT_ID = 2
 const val CLIENT_SECRET = "kyj1c9sVcksqGU4scMX7nLDalkjp2WoqQEf8PKAC"
-class UserRemoteDataSource(val apiService: ApiService): UserDataSource {
+class UserRemoteDataSource @Inject constructor(private val apiService: ApiService): UserDataSource {
     override fun login(userName: String, password: String): Single<TokenResponse> {
         return apiService.login(JsonObject().apply {
             addProperty("username", userName)

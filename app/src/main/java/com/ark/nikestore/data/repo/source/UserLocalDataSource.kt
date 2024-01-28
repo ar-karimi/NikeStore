@@ -5,8 +5,10 @@ import com.ark.nikestore.data.MessageResponse
 import com.ark.nikestore.data.TokenContainer
 import com.ark.nikestore.data.TokenResponse
 import io.reactivex.Single
+import javax.inject.Inject
 
-class UserLocalDataSource(val sharedPreferences: SharedPreferences) : UserDataSource {
+class UserLocalDataSource @Inject constructor(private val sharedPreferences: SharedPreferences) :
+    UserDataSource {
     override fun login(userName: String, password: String): Single<TokenResponse> {
         TODO("Not yet implemented")
     }

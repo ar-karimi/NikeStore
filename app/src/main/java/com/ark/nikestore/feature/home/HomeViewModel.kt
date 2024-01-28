@@ -11,9 +11,15 @@ import com.ark.nikestore.data.SORT_LATEST
 import com.ark.nikestore.data.SORT_POPULAR
 import com.ark.nikestore.data.repo.BannerRepository
 import com.ark.nikestore.data.repo.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class HomeViewModel(private val productRepository: ProductRepository, bannerRepository: BannerRepository) : BaseViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val productRepository: ProductRepository,
+    bannerRepository: BannerRepository
+) : BaseViewModel() {
 
     private val bannersLiveData = MutableLiveData<List<Banner>>()
     private val latestProductsLiveData = MutableLiveData<List<Product>>()
@@ -24,18 +30,18 @@ class HomeViewModel(private val productRepository: ProductRepository, bannerRepo
 
         bannerRepository.getBanners()
             //.doFinally { progressBarLiveData.value = false }
-            .subscribe(object : BaseSingleObserver<List<Banner>>(compositeDisposable){
+            .subscribe(object : BaseSingleObserver<List<Banner>>(compositeDisposable) {
                 override fun onSuccess(t: List<Banner>) {
                     bannersLiveData.value = t
                 }
             })
     }
 
-    fun getProductsLists(){
+    fun getProductsLists() {
 
         productRepository.getProducts(SORT_LATEST)
             //.doFinally { progressBarLiveData.value = false }
-            .subscribe(object : BaseSingleObserver<List<Product>>(compositeDisposable){
+            .subscribe(object : BaseSingleObserver<List<Product>>(compositeDisposable) {
                 override fun onSuccess(t: List<Product>) {
                     latestProductsLiveData.value = t
                 }
@@ -43,18 +49,18 @@ class HomeViewModel(private val productRepository: ProductRepository, bannerRepo
 
         productRepository.getProducts(SORT_POPULAR)
             .doFinally { progressBarLiveData.value = false }
-            .subscribe(object : BaseSingleObserver<List<Product>>(compositeDisposable){
+            .subscribe(object : BaseSingleObserver<List<Product>>(compositeDisposable) {
                 override fun onSuccess(t: List<Product>) {
                     popularProductsLiveData.value = t
                 }
             })
     }
 
-    fun changeFavoriteProduct(product: Product){
+    fun changeFavoriteProduct(product: Product) {
         if (product.isFavorite)
             productRepository.deleteFromFavorites(product)
                 .subscribeOn(Schedulers.io())
-                .subscribe(object : BaseCompletableObserver(compositeDisposable){
+                .subscribe(object : BaseCompletableObserver(compositeDisposable) {
                     override fun onComplete() {
                         product.isFavorite = false
                     }
@@ -62,7 +68,7 @@ class HomeViewModel(private val productRepository: ProductRepository, bannerRepo
         else
             productRepository.addToFavorites(product)
                 .subscribeOn(Schedulers.io())
-                .subscribe(object : BaseCompletableObserver(compositeDisposable){
+                .subscribe(object : BaseCompletableObserver(compositeDisposable) {
                     override fun onComplete() {
                         product.isFavorite = true
                     }

@@ -10,13 +10,15 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import timber.log.Timber
+import javax.inject.Inject
 
-class BaseAuthenticator : Authenticator, KoinComponent {
-    private val apiService: ApiService by inject()
-    private val userLocalDataSource: UserDataSource by inject()
+class BaseAuthenticator : Authenticator {
+
+    @Inject
+    lateinit var apiService: ApiService
+    @Inject
+    lateinit var userLocalDataSource: UserDataSource
 
     //Calls any time 401 occurred (is synchronous)
     override fun authenticate(route: Route?, response: Response): Request? {

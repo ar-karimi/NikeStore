@@ -6,20 +6,25 @@ import com.ark.nikestore.common.BaseSingleObserver
 import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.data.repo.CommentRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CommentListViewModel(productId: Int, commentRepository: CommentRepository) : BaseViewModel() {
+@HiltViewModel
+class CommentListViewModel @Inject constructor(private val commentRepository: CommentRepository) :
+    BaseViewModel() {
 
     private val commentListLiveData = MutableLiveData<List<Comment>>()
-    init {
+
+    fun getComments(productId: Int) {
         progressBarLiveData.value = true
         commentRepository.getAll(productId)
             .doFinally { progressBarLiveData.value = false }
-            .subscribe(object : BaseSingleObserver<List<Comment>>(compositeDisposable){
+            .subscribe(object : BaseSingleObserver<List<Comment>>(compositeDisposable) {
                 override fun onSuccess(t: List<Comment>) {
                     commentListLiveData.value = t
                 }
             })
     }
 
-    fun getCommentListLiveData() : LiveData<List<Comment>> = commentListLiveData
+    fun getCommentListLiveData(): LiveData<List<Comment>> = commentListLiveData
 }

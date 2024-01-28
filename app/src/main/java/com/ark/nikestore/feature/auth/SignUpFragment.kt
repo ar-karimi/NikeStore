@@ -2,18 +2,20 @@ package com.ark.nikestore.feature.auth
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseCompletableObserver
 import com.ark.nikestore.common.BaseFragment
 import com.ark.nikestore.databinding.FragmentSignUpBinding
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class SignUpFragment: BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up) {
 
-    private val viewModel: AuthViewModel by viewModel()
+    private val viewModel: AuthViewModel by viewModels()
     private val compositeDisposable = CompositeDisposable()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

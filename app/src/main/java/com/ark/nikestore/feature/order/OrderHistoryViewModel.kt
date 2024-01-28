@@ -6,8 +6,11 @@ import com.ark.nikestore.common.BaseSingleObserver
 import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.OrderHistoryItem
 import com.ark.nikestore.data.repo.OrderRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class OrderHistoryViewModel(orderRepository: OrderRepository): BaseViewModel() {
+@HiltViewModel
+class OrderHistoryViewModel @Inject constructor(orderRepository: OrderRepository): BaseViewModel() {
 
     private val orderHistoryItemsLiveData = MutableLiveData<List<OrderHistoryItem>>()
     init {

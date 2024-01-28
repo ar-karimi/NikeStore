@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
@@ -39,6 +40,11 @@ android {
     }
 }
 
+// Allow references to generated code (for hilt)
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -51,13 +57,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.5.1'
     debugImplementation "androidx.fragment:fragment-testing:1.6.2"
 
-    def koin_version = "3.5.0"
-    // Koin for Android
-    implementation "io.insert-koin:koin-android:$koin_version"
-/*    // or Koin for Lifecycle scoping
-    implementation "org.koin:koin-android-scope:$koin_version"
-    // or Koin for Android Architecture ViewModel
-    implementation "org.koin:koin-android-viewmodel:$koin_version"*/
+    //Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     //retrofit
     implementation 'com.google.code.gson:gson:2.8.6'
@@ -73,8 +75,8 @@ dependencies {
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
-    def nav_version = "2.5.3"
     //Navigation
+    def nav_version = "2.5.3"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-runtime-ktx:$nav_version"

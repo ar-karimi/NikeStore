@@ -6,11 +6,15 @@ import com.ark.nikestore.common.BaseSingleObserver
 import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.Checkout
 import com.ark.nikestore.data.repo.OrderRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CheckOutViewModel(orderId: Int, orderRepository: OrderRepository): BaseViewModel() {
+@HiltViewModel
+class CheckOutViewModel @Inject constructor(private val orderRepository: OrderRepository): BaseViewModel() {
 
     private val checkoutLiveData = MutableLiveData<Checkout>()
-    init {
+
+    fun checkout(orderId: Int){
         progressBarLiveData.value = true
         orderRepository.checkout(orderId)
             .doFinally { progressBarLiveData.value = false }

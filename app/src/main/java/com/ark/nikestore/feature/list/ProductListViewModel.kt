@@ -8,24 +8,28 @@ import com.ark.nikestore.common.BaseSingleObserver
 import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.Product
 import com.ark.nikestore.data.repo.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ProductListViewModel(var sort: Int, private val productRepository: ProductRepository) : BaseViewModel() {
+@HiltViewModel
+class ProductListViewModel @Inject constructor(private val productRepository: ProductRepository)
+    : BaseViewModel() {
 
     private val productsLivedata = MutableLiveData<List<Product>>()
-    private val selectedSortTitleResIdLiveData = MutableLiveData<Int>()
-    private val sortTitles = arrayOf(R.string.sortLatest, R.string.sortPopular
-        , R.string.sortPriceHighToLow, R.string.sortPriceLowToHigh)
+    private val selectedSortTitleResIdLiveData = MutableLiveData<Int>(R.string.sortLatest)
+    private val sortTitles = arrayOf(
+        R.string.sortLatest,
+        R.string.sortPopular,
+        R.string.sortPriceHighToLow,
+        R.string.sortPriceLowToHigh
+    )
 
-    init {
-        selectedSortTitleResIdLiveData.value = sortTitles[sort]
-    }
-
-    fun getProducts() {
+    private fun getProducts(sort: Int) {
 
         progressBarLiveData.value = true
         productRepository.getProducts(sort)
-            .doFinally { progressBarLiveData.value = false}
+            .doFinally { progressBarLiveData.value = false }
             .subscribe(object : BaseSingleObserver<List<Product>>(compositeDisposable) {
                 override fun onSuccess(t: List<Product>) {
                     productsLivedata.value = t
@@ -36,17 +40,16 @@ class ProductListViewModel(var sort: Int, private val productRepository: Product
     fun getProductsLiveData(): LiveData<List<Product>> = productsLivedata
     fun getSelectedSortTitleResIdLiveData(): LiveData<Int> = selectedSortTitleResIdLiveData
 
-    fun onSelectedSortChange(sort: Int){
-        this.sort = sort
+    fun setSelectedSort(sort: Int) {
         selectedSortTitleResIdLiveData.value = sortTitles[sort]
-        getProducts()
+        getProducts(sort)
     }
 
-    fun changeFavoriteProduct(product: Product){
+    fun changeFavoriteProduct(product: Product) {
         if (product.isFavorite)
             productRepository.deleteFromFavorites(product)
                 .subscribeOn(Schedulers.io())
-                .subscribe(object : BaseCompletableObserver(compositeDisposable){
+                .subscribe(object : BaseCompletableObserver(compositeDisposable) {
                     override fun onComplete() {
                         product.isFavorite = false
                     }
@@ -54,7 +57,7 @@ class ProductListViewModel(var sort: Int, private val productRepository: Product
         else
             productRepository.addToFavorites(product)
                 .subscribeOn(Schedulers.io())
-                .subscribe(object : BaseCompletableObserver(compositeDisposable){
+                .subscribe(object : BaseCompletableObserver(compositeDisposable) {
                     override fun onComplete() {
                         product.isFavorite = true
                     }

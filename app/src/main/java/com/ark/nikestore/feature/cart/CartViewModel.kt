@@ -12,10 +12,13 @@ import com.ark.nikestore.data.EmptyState
 import com.ark.nikestore.data.PurchaseDetail
 import com.ark.nikestore.data.TokenContainer
 import com.ark.nikestore.data.repo.CartRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
 import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
 
-class CartViewModel(private val cartRepository: CartRepository) : BaseViewModel() {
+@HiltViewModel
+class CartViewModel @Inject constructor(private val cartRepository: CartRepository) : BaseViewModel() {
 
     private val cartItemsLiveData = MutableLiveData<List<CartItem>>()
     private val purchaseDetailLiveData = MutableLiveData<PurchaseDetail>()

@@ -3,10 +3,17 @@ package com.ark.nikestore.data.repo
 import com.ark.nikestore.data.TokenContainer
 import com.ark.nikestore.data.TokenResponse
 import com.ark.nikestore.data.repo.source.UserDataSource
+import com.ark.nikestore.di.repositories.userRepository.UserLocalDataSourceQualifier
+import com.ark.nikestore.di.repositories.userRepository.UserRemoteDataSourceQualifier
 import io.reactivex.Completable
+import javax.inject.Inject
 
-class UserRepositoryImpl(private val userRemoteDataSource: UserDataSource, private val userLocalDataSource: UserDataSource)
-    : UserRepository {
+class UserRepositoryImpl @Inject constructor(
+    @UserRemoteDataSourceQualifier
+    private val userRemoteDataSource: UserDataSource,
+    @UserLocalDataSourceQualifier
+    private val userLocalDataSource: UserDataSource
+) : UserRepository {
     override fun login(userName: String, password: String): Completable {
         return userRemoteDataSource.login(userName, password).doOnSuccess {
             onSuccessfulLogin(userName, it)
@@ -35,7 +42,7 @@ class UserRepositoryImpl(private val userRemoteDataSource: UserDataSource, priva
         TokenContainer.update(null, null)
     }
 
-    private fun onSuccessfulLogin(userName: String, tokenResponse: TokenResponse){
+    private fun onSuccessfulLogin(userName: String, tokenResponse: TokenResponse) {
         userLocalDataSource.saveToken(tokenResponse.access_token, tokenResponse.refresh_token)
         TokenContainer.update(tokenResponse.access_token, tokenResponse.refresh_token)
 

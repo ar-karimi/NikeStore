@@ -10,7 +10,7 @@ import com.ark.nikestore.R
 import com.ark.nikestore.common.dpToPx
 import com.ark.nikestore.data.OrderHistoryItem
 import com.ark.nikestore.databinding.ItemOrderHistoryBinding
-import com.ark.nikestore.view.customViews.BaseImageView
+import com.ark.nikestore.view.customViews.CustomImageView
 
 class OrderHistoryItemAdapter(private val context: Context, private val orderHistoryList: List<OrderHistoryItem>): RecyclerView.Adapter<OrderHistoryItemAdapter.ViewHolder>() {
 
@@ -29,11 +29,11 @@ class OrderHistoryItemAdapter(private val context: Context, private val orderHis
 
             binding.orderProductsLl.removeAllViews() //to prevent duplicate items when scroll (Recycle)
             orderHistoryItem.order_items.forEach {
-                val baseImageView = BaseImageView(context)
-                baseImageView.layoutParams = layoutParams
-                baseImageView.setImageURI(it.product.image)
+                val customImageView = CustomImageView(context)
+                customImageView.layoutParams = layoutParams
+                customImageView.setImageURI(it.product.image)
 
-                binding.orderProductsLl.addView(baseImageView)
+                binding.orderProductsLl.addView(customImageView)
             }
 
             binding.executePendingBindings()

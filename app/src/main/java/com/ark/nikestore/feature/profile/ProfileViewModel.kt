@@ -4,9 +4,12 @@ import com.ark.nikestore.common.BaseViewModel
 import com.ark.nikestore.data.CartItemCount
 import com.ark.nikestore.data.TokenContainer
 import com.ark.nikestore.data.repo.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import org.greenrobot.eventbus.EventBus
+import javax.inject.Inject
 
-class ProfileViewModel(private val userRepository: UserRepository): BaseViewModel() {
+@HiltViewModel
+class ProfileViewModel @Inject constructor(private val userRepository: UserRepository): BaseViewModel() {
 
     val userName: String
         get() = userRepository.getUserName()

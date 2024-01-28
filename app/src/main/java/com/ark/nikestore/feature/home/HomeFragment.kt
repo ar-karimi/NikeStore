@@ -3,6 +3,7 @@ package com.ark.nikestore.feature.home
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseFragment
@@ -15,12 +16,13 @@ import com.ark.nikestore.databinding.FragmentHomeBinding
 import com.ark.nikestore.feature.common.ProductListAdapter
 import com.ark.nikestore.feature.list.ProductListActivity
 import com.ark.nikestore.feature.product.ProductDetailActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>(R.layout.fragment_home),
     ProductListAdapter.ProductCallBacks {
 
-    private val viewModel: HomeViewModel by viewModel()
+    private val viewModel: HomeViewModel by viewModels()
     private var bannerSliderAdapter: BannerSliderAdapter? = null
     private val latestProductListAdapter = ProductListAdapter(this)
     private val popularProductListAdapter = ProductListAdapter(this)

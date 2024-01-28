@@ -9,19 +9,21 @@ import com.ark.nikestore.R
 import com.ark.nikestore.common.EXTRA_KEY_DATA
 import com.ark.nikestore.data.Banner
 import com.ark.nikestore.services.ImageLoadingService
-import com.ark.nikestore.view.customViews.BaseImageView
-import org.koin.android.ext.android.inject
-import java.lang.IllegalStateException
+import com.ark.nikestore.view.customViews.CustomImageView
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class BannerFragment : Fragment() {
 
-    val imageLoadingService: ImageLoadingService by inject()
+    @Inject
+    lateinit var imageLoadingService: ImageLoadingService
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val imageView = inflater.inflate(R.layout.fargment_banner, container, false) as BaseImageView
+        val imageView = inflater.inflate(R.layout.fargment_banner, container, false) as CustomImageView
         val banner =
             requireArguments().getParcelable<Banner>(EXTRA_KEY_DATA) ?: throw IllegalStateException("Banner can't be null")
         imageLoadingService.loadImage(imageView, banner.image)

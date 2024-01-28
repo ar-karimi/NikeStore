@@ -7,8 +7,10 @@ import com.ark.nikestore.data.MessageResponse
 import com.ark.nikestore.services.httpClient.ApiService
 import com.google.gson.JsonObject
 import io.reactivex.Single
+import javax.inject.Inject
 
-class CartRemoteDataSource(val apiService: ApiService): CartDataSource {
+class CartRemoteDataSource @Inject constructor(private val apiService: ApiService) :
+    CartDataSource {
     override fun addToCart(productId: Int): Single<AddToCartResponse> = apiService.addToCart(
         JsonObject().apply {
             addProperty("product_id", productId)
@@ -23,12 +25,13 @@ class CartRemoteDataSource(val apiService: ApiService): CartDataSource {
         }
     )
 
-    override fun changeCount(cartItemId: Int, count: Int): Single<AddToCartResponse> = apiService.changeCount(
-        JsonObject().apply {
-            addProperty("cart_item_id", cartItemId)
-            addProperty("count", count)
-        }
-    )
+    override fun changeCount(cartItemId: Int, count: Int): Single<AddToCartResponse> =
+        apiService.changeCount(
+            JsonObject().apply {
+                addProperty("cart_item_id", cartItemId)
+                addProperty("count", count)
+            }
+        )
 
     override fun getCardItemsCount(): Single<CartItemCount> = apiService.getCartItemsCount()
 }

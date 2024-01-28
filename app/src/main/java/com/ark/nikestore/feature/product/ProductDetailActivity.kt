@@ -3,28 +3,31 @@ package com.ark.nikestore.feature.product
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseActivity
 import com.ark.nikestore.common.BaseCompletableObserver
+import com.ark.nikestore.common.EXTRA_KEY_DATA
 import com.ark.nikestore.common.EXTRA_KEY_ID
 import com.ark.nikestore.data.Comment
 import com.ark.nikestore.databinding.ActivityProductDetailBinding
 import com.ark.nikestore.feature.product.comment.CommentListActivity
 import com.ark.nikestore.view.customViews.scrollView.ObservableScrollViewCallbacks
 import com.ark.nikestore.view.customViews.scrollView.ScrollState
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.disposables.CompositeDisposable
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
-class ProductDetailActivity :
-    BaseActivity<ActivityProductDetailBinding>(R.layout.activity_product_detail) {
+@AndroidEntryPoint
+class ProductDetailActivity : BaseActivity<ActivityProductDetailBinding>(R.layout.activity_product_detail) {
 
-    private val viewModel: ProductDetailViewModel by viewModel { parametersOf(intent.extras) }
+    private val viewModel: ProductDetailViewModel by viewModels()
     private val commentAdapter = CommentAdapter()
     private val compositeDisposable = CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel.initProduct(intent.extras!!.getParcelable(EXTRA_KEY_DATA)!!)
 
         binding.viewModel = viewModel
         binding.executePendingBindings()

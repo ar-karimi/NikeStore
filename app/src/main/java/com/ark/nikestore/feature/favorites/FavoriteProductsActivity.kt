@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ark.nikestore.R
@@ -12,13 +13,14 @@ import com.ark.nikestore.common.EXTRA_KEY_DATA
 import com.ark.nikestore.data.Product
 import com.ark.nikestore.databinding.ActivityFavoriteProductsBinding
 import com.ark.nikestore.feature.product.ProductDetailActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FavoriteProductsActivity :
     BaseActivity<ActivityFavoriteProductsBinding>(R.layout.activity_favorite_products),
     FavoriteProductsCallbacks {
 
-    private val viewModel: FavoriteProductsViewModel by viewModel()
+    private val viewModel: FavoriteProductsViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

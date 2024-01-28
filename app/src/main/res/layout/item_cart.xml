@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             tools:minHeight="200dp">
 
-            <com.ark.nikestore.view.customViews.BaseImageView
+            <com.ark.nikestore.view.customViews.CustomImageView
                 android:id="@+id/productIv"
                 android:layout_width="100dp"
                 android:layout_height="100dp"

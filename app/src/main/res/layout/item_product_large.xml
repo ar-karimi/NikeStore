@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginVertical="4dp">
 
-        <com.ark.nikestore.view.customViews.BaseImageView
+        <com.ark.nikestore.view.customViews.CustomImageView
             android:id="@+id/productIv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

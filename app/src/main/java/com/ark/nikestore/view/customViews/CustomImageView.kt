@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import com.facebook.drawee.generic.GenericDraweeHierarchy
 import com.facebook.drawee.view.SimpleDraweeView
 
-class BaseImageView:SimpleDraweeView {
+class CustomImageView:SimpleDraweeView {
     constructor(context: Context?, hierarchy: GenericDraweeHierarchy?) : super(context, hierarchy)
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)

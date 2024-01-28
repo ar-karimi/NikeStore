@@ -3,17 +3,19 @@ package com.ark.nikestore.feature.profile
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.ark.nikestore.R
 import com.ark.nikestore.common.BaseFragment
 import com.ark.nikestore.databinding.FragmentProfileBinding
 import com.ark.nikestore.feature.auth.AuthActivity
 import com.ark.nikestore.feature.favorites.FavoriteProductsActivity
 import com.ark.nikestore.feature.order.OrderHistoryActivity
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
-    private val viewModel: ProfileViewModel by viewModel()
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

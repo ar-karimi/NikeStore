@@ -31,7 +31,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <com.ark.nikestore.view.customViews.BaseImageView
+                    <com.ark.nikestore.view.customViews.CustomImageView
                         android:id="@+id/productIv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

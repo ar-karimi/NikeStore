@@ -6,8 +6,9 @@ import com.ark.nikestore.data.SubmitOrderResult
 import com.ark.nikestore.services.httpClient.ApiService
 import com.google.gson.JsonObject
 import io.reactivex.Single
+import javax.inject.Inject
 
-class OrderRemoteDataSource(private val apiService: ApiService): OrderDataSource {
+class OrderRemoteDataSource @Inject constructor(private val apiService: ApiService): OrderDataSource {
     override fun submit(
         firstName: String,
         lastName: String,

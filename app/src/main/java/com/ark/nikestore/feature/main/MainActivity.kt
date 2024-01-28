@@ -1,6 +1,7 @@
 package com.ark.nikestore.feature.main
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
@@ -10,13 +11,14 @@ import com.ark.nikestore.common.dpToPx
 import com.ark.nikestore.data.CartItemCount
 import com.ark.nikestore.databinding.ActivityMainBinding
 import com.google.android.material.badge.BadgeDrawable
+import dagger.hilt.android.AndroidEntryPoint
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private lateinit var navController: NavController
-    private val viewModel: MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
