@@ -1,11 +1,12 @@
 # NikeStore
 This is a sample online store for checking and buying Nike shoes
 
-Using: MVVM, Koin, Retrofit, RxJava2, Room, LiveData, DataBinding/BindingAdapters, Junit/Espresso, Fresco, EventBus, Material Design, ViewPager2
+Using: MVVM, Clean Architecture, Architecture components (ViewModel, LiveData, DataBinding/BindingAdapters), SOLID Principles,
+Koin, Retrofit, RxJava2, Room, Junit/Espresso, Fresco, EventBus, Material Design, ViewPager2
 
 > Developed in 2023
 
-Refactored Project with Dagger Hilt available in 'refactor' branch
+Refactored Project with 'Dagger Hilt' is available in 'refactor' branch
 
 > Refactored in 2024
 
