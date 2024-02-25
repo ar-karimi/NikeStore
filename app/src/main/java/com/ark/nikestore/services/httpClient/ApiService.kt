@@ -32,10 +32,13 @@ interface ApiService {
 
     @POST("cart/add")
     fun addToCart(@Body jsonObject: JsonObject): Single<AddToCartResponse>
+
     @POST("cart/remove")
     fun removeFromCart(@Body jsonObject: JsonObject): Single<MessageResponse>
+
     @GET("cart/list")
     fun getCart(): Single<CartResponse>
+
     @POST("cart/changeCount")
     fun changeCount(@Body jsonObject: JsonObject): Single<AddToCartResponse>
 
@@ -59,4 +62,8 @@ interface ApiService {
 
     @GET("order/list")
     fun orders(): Single<List<OrderHistoryItem>>
+
+    companion object {
+        const val BASE_URL = "http://expertdevelopers.ir/api/v1/"
+    }
 }

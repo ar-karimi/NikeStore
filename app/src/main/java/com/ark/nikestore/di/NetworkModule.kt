@@ -14,6 +14,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 import com.ark.nikestore.BuildConfig
+import retrofit2.create
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -55,16 +56,12 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient): Retrofit =
+    fun provideApiService(client: OkHttpClient): ApiService =
         Retrofit.Builder()
-            .baseUrl("http://expertdevelopers.ir/api/v1/")
+            .baseUrl(ApiService.BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
-
-    @Provides
-    @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService =
-        retrofit.create(ApiService::class.java)
+            .create()
 }
